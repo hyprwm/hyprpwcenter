@@ -14,6 +14,8 @@ class CGraphView {
     void                               addNode(WP<IPwNode> node);
     void                               removeNode(WP<IPwNode> node);
 
+    void                               center();
+
     SP<Hyprtoolkit::CRectangleElement> m_background;
 
     WP<CGraphView>                     m_self;

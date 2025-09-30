@@ -270,4 +270,7 @@ void CUI::changeTab(size_t idx) {
         case 4: m_tabs.tabContainerNoScroll->addChild(m_tabs.graphTab.graphView->m_background); break;
         default: break;
     }
+
+    if (idx == 4)
+        m_tabs.graphTab.graphView->center();
 }

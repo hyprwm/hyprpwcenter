@@ -5,7 +5,7 @@
 
 using namespace Hyprutils::Math;
 
-constexpr float CANVAS_SIZE = 3000.F;
+constexpr float CANVAS_SIZE = 10000.F;
 
 CGraphView::CGraphView() {
     m_background = Hyprtoolkit::CRectangleBuilder::begin()
@@ -42,9 +42,17 @@ CGraphView::CGraphView() {
     m_container->setMouseMove([this](const Vector2D& local) {
         m_lastMousePos = local;
 
-        if (m_mouseDown && m_draggingNode) {
-            auto newPos = m_lastMousePos - m_posAtStart + m_elementPosAtStart;
-            m_draggingNode->setPos(newPos);
+        if (m_mouseDown) {
+
+            const auto DELTA = m_lastMousePos - m_posAtStart;
+
+            if (m_draggingNode) {
+                const auto newPos = DELTA + m_elementPosAtStart;
+                m_draggingNode->setPos(newPos);
+            } else {
+                const auto newPos = -DELTA + m_elementPosAtStart;
+                m_scrollArea->setScroll(newPos);
+            }
         }
     });
     m_container->setMouseEnter([this](const Vector2D& local) { m_mouseDown = false; });
@@ -58,6 +66,8 @@ CGraphView::CGraphView() {
             m_draggingNode = nodeFromCoord(m_lastMousePos);
             if (m_draggingNode)
                 m_elementPosAtStart = m_draggingNode->pos();
+            else
+                m_elementPosAtStart = m_scrollArea->getCurrentScroll();
         } else {
             m_mouseDown = false;
             m_draggingNode.reset();
@@ -66,9 +76,16 @@ CGraphView::CGraphView() {
 
     m_background->addChild(m_scrollArea);
     m_scrollArea->addChild(m_container);
+
+    m_lastInitialPos = Vector2D{(CANVAS_SIZE / 2.F) - 200.F, (CANVAS_SIZE / 2.F) - 200.F};
+    m_scrollArea->setScroll(m_lastInitialPos - Vector2D{40.F, 40.F});
 }
 
 CGraphView::~CGraphView() = default;
+
+void CGraphView::center() {
+    m_scrollArea->setScroll(Vector2D{(CANVAS_SIZE / 2.F) - 200.F, (CANVAS_SIZE / 2.F) - 200.F} - Vector2D{40.F, 40.F});
+}
 
 void CGraphView::addNode(WP<IPwNode> node) {
     if (std::ranges::find_if(m_nodes, [node](const auto& e) { return e->m_node == node; }) != m_nodes.end())
