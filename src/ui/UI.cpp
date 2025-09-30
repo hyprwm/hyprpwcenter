@@ -1,6 +1,7 @@
 #include "UI.hpp"
 #include "NodeVolumeSlider.hpp"
 #include "DeviceConfig.hpp"
+#include "./graph/Graph.hpp"
 #include "../pw/PwState.hpp"
 
 using namespace Hyprutils::Math;
@@ -33,6 +34,10 @@ CUI::CUI() {
                               ->scrollY(true)
                               ->commence();
     m_tabs.tabContainer->setGrow(true);
+
+    m_tabs.tabContainerNoScroll =
+        Hyprtoolkit::CNullBuilder::begin()->size({Hyprtoolkit::CDynamicSize::HT_SIZE_PERCENT, Hyprtoolkit::CDynamicSize::HT_SIZE_ABSOLUTE, {1, 10}})->commence();
+    m_tabs.tabContainerNoScroll->setGrow(true);
 
     m_tabs.nodesTab.nodesLayout = Hyprtoolkit::CColumnLayoutBuilder::begin()
                                       ->gap(SMALL_PADDING)
@@ -82,6 +87,13 @@ CUI::CUI() {
                               ->size({Hyprtoolkit::CDynamicSize::HT_SIZE_AUTO, Hyprtoolkit::CDynamicSize::HT_SIZE_PERCENT, {1.F, 1.F}})
                               ->commence();
 
+    m_tabs.graphButton = Hyprtoolkit::CButtonBuilder::begin()
+                             ->label("Graph")
+                             ->noBorder(true)
+                             ->onMainClick([this](SP<Hyprtoolkit::CButtonElement>) { changeTab(4); })
+                             ->size({Hyprtoolkit::CDynamicSize::HT_SIZE_AUTO, Hyprtoolkit::CDynamicSize::HT_SIZE_PERCENT, {1.F, 1.F}})
+                             ->commence();
+
     auto hr = Hyprtoolkit::CRectangleBuilder::begin() //
                   ->color([this] { return Hyprtoolkit::CHyprColor{m_backend->getPalette()->m_colors.text.darken(0.65)}; })
                   ->size({Hyprtoolkit::CDynamicSize::HT_SIZE_PERCENT, Hyprtoolkit::CDynamicSize::HT_SIZE_ABSOLUTE, {1.F, 9.F}})
@@ -89,8 +101,11 @@ CUI::CUI() {
     hr->setMargin(4);
 
     m_window->m_events.closeRequest.listenStatic([this] {
-        m_window->close();
-        m_backend->destroy();
+        cleanState();
+        m_backend->addIdle([this] {
+            m_window->close();
+            m_backend->destroy();
+        });
     });
 
     m_window->m_rootElement->addChild(m_background);
@@ -105,11 +120,23 @@ CUI::CUI() {
     m_tabs.buttonLayout->addChild(m_tabs.nodesButton);
     m_tabs.buttonLayout->addChild(m_tabs.inputsButton);
     m_tabs.buttonLayout->addChild(m_tabs.configButton);
+    m_tabs.buttonLayout->addChild(m_tabs.graphButton);
 
     changeTab(0);
 }
 
+CUI::~CUI() = default;
+
+void CUI::cleanState() {
+    m_layout->removeChild(m_tabs.tabContainerNoScroll);
+    m_tabs.tabContainerNoScroll.reset();
+    m_tabs.graphTab.graphView.reset();
+}
+
 void CUI::run() {
+    m_tabs.graphTab.graphView         = makeShared<CGraphView>();
+    m_tabs.graphTab.graphView->m_self = m_tabs.graphTab.graphView;
+
     m_backend->addFd(g_pipewire->getFd(), [] { g_pipewire->dispatch(); });
 
     m_window->open();
@@ -119,6 +146,8 @@ void CUI::run() {
 }
 
 void CUI::updateNode(WP<IPwNode> node) {
+    m_tabs.graphTab.graphView->addNode(node);
+
     for (const auto& n : m_tabs.nodesTab.nodeSliders) {
         if (n->m_id != node->m_id)
             continue;
@@ -164,6 +193,8 @@ void CUI::updateNode(WP<IPwNode> node) {
 }
 
 void CUI::nodeRemoved(WP<IPwNode> node) {
+    m_tabs.graphTab.graphView->removeNode(node);
+
     for (const auto& n : m_tabs.nodesTab.nodeSliders) {
         if (n->m_id != node->m_id)
             continue;
@@ -223,11 +254,20 @@ void CUI::changeTab(size_t idx) {
 
     m_tab = idx;
 
+    if (m_tab == 4) {
+        m_layout->removeChild(m_tabs.tabContainer);
+        m_layout->addChild(m_tabs.tabContainerNoScroll);
+    } else {
+        m_layout->removeChild(m_tabs.tabContainerNoScroll);
+        m_layout->addChild(m_tabs.tabContainer);
+    }
+
     switch (idx) {
         case 0: m_tabs.tabContainer->addChild(m_tabs.appsTab.appsLayout); break;
         case 1: m_tabs.tabContainer->addChild(m_tabs.nodesTab.nodesLayout); break;
         case 2: m_tabs.tabContainer->addChild(m_tabs.inputsTab.inputsLayout); break;
         case 3: m_tabs.tabContainer->addChild(m_tabs.configTab.configLayout); break;
+        case 4: m_tabs.tabContainerNoScroll->addChild(m_tabs.graphTab.graphView->m_background); break;
         default: break;
     }
 }
