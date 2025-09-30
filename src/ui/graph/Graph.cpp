@@ -66,6 +66,7 @@ CGraphView::CGraphView() {
             } else {
                 const auto newPos = -DELTA + m_elementPosAtStart;
                 m_scrollArea->setScroll(newPos);
+                m_elementPosAtStart = m_scrollArea->getCurrentScroll();
             }
         }
     });
@@ -96,7 +97,6 @@ CGraphView::CGraphView() {
                     m_container->addChild(m_liveConnection->m_line);
                     m_elementPosAtStart = m_lastMousePos;
                 } else
-
                     m_elementPosAtStart = m_draggingNode->pos();
             } else
                 m_elementPosAtStart = m_scrollArea->getCurrentScroll();
