@@ -27,6 +27,7 @@ class CGraphView {
   private:
     SP<CGraphNode>                      nodeFromCoord(const Hyprutils::Math::Vector2D& pos);
     SP<CGraphNode>                      nodeFromID(size_t x);
+    void                                positionNewNode(SP<CGraphNode> x);
 
     void                                connect(SP<CGraphNode> a, SP<CGraphNode> b, size_t portA, size_t portB, WP<CPipewireLink> link);
     void                                scheduleUpdateConnections();

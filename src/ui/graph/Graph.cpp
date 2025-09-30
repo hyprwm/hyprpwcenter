@@ -161,32 +161,7 @@ void CGraphView::rearrange() {
     m_ioOffset  = 20;
 
     for (const auto& n : m_nodes) {
-        float size = 0;
-        switch (n->nodePolarity()) {
-            case CGraphNode::NODE_OUTPUT:
-                n->setPos(m_initialPos + Vector2D{0.F, m_inOffset});
-                size = n->size().y;
-                if (size == 0)
-                    size = 150;
-                m_inOffset += size + ELEMENT_GAP;
-                break;
-
-            case CGraphNode::NODE_IO:
-                n->setPos(m_initialPos + Vector2D{COLUMN_GAP, m_ioOffset});
-                size = n->size().y;
-                if (size == 0)
-                    size = 150;
-                m_ioOffset += size + ELEMENT_GAP;
-                break;
-
-            case CGraphNode::NODE_INPUT:
-                n->setPos(m_initialPos + Vector2D{COLUMN_GAP * 2, m_inOffset});
-                size = n->size().y;
-                if (size == 0)
-                    size = 150;
-                m_inOffset += size + ELEMENT_GAP;
-                break;
-        }
+        positionNewNode(n);
     }
 
     scheduleUpdateConnections();
@@ -203,11 +178,43 @@ void CGraphView::addNode(WP<IPwNode> node) {
     x->m_view = m_self;
     m_container->addChild(x->m_background);
 
+    positionNewNode(x);
+
     scheduleUpdateConnections();
+}
+
+void CGraphView::positionNewNode(SP<CGraphNode> x) {
+    float size = 0;
+    switch (x->nodePolarity()) {
+        case CGraphNode::NODE_OUTPUT:
+            x->setPos(m_initialPos + Vector2D{0.F, m_inOffset});
+            size = x->size().y;
+            if (size == 0)
+                size = 150;
+            m_inOffset += size + ELEMENT_GAP;
+            break;
+
+        case CGraphNode::NODE_IO:
+            x->setPos(m_initialPos + Vector2D{COLUMN_GAP, m_ioOffset});
+            size = x->size().y;
+            if (size == 0)
+                size = 150;
+            m_ioOffset += size + ELEMENT_GAP;
+            break;
+
+        case CGraphNode::NODE_INPUT:
+            x->setPos(m_initialPos + Vector2D{COLUMN_GAP * 2, m_inOffset});
+            size = x->size().y;
+            if (size == 0)
+                size = 150;
+            m_inOffset += size + ELEMENT_GAP;
+            break;
+    }
 }
 
 void CGraphView::removeNode(WP<IPwNode> node) {
     std::erase_if(m_nodes, [node](const auto& e) { return !e || !e->m_node || e->m_node == node; });
+    std::erase_if(m_connections, [node](const auto& e) { return !e || !e->m_a || !e->m_b; });
 
     scheduleUpdateConnections();
 }
