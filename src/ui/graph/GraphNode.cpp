@@ -6,8 +6,9 @@
 
 using namespace Hyprutils::Math;
 
-constexpr float BUBBLE_WIDTH = 200.F;
-constexpr float ANCHOR_WIDTH = 12.F;
+constexpr float BUBBLE_WIDTH    = 200.F;
+constexpr float ANCHOR_WIDTH    = 12.F;
+constexpr float ANCHOR_WIDTH_SQ = ANCHOR_WIDTH * ANCHOR_WIDTH;
 
 CGraphNode::CGraphNode(WP<IPwNode> node, const Hyprutils::Math::Vector2D& initialPos) : m_node(node), m_pos(initialPos) {
     m_background = Hyprtoolkit::CRectangleBuilder::begin()
@@ -215,6 +216,56 @@ size_t CGraphNode::portFromID(size_t id) {
             outSize += p->m_channels.size();
         else
             inSize += p->m_channels.size();
+    }
+
+    return 0;
+}
+
+std::optional<size_t> CGraphNode::inputFromPos(const Hyprutils::Math::Vector2D& x) {
+    for (size_t i = 0; i < m_anchors.size(); ++i) {
+        if (getInputPos(i).distanceSq(x) < ANCHOR_WIDTH_SQ)
+            return i;
+    }
+
+    return std::nullopt;
+}
+
+std::optional<size_t> CGraphNode::outputFromPos(const Hyprutils::Math::Vector2D& x) {
+    for (size_t i = 0; i < m_anchors.size(); ++i) {
+        if (getOutputPos(i).distanceSq(x) < ANCHOR_WIDTH_SQ)
+            return i;
+    }
+
+    return std::nullopt;
+}
+
+uint32_t CGraphNode::inPortToID(size_t idx) {
+    size_t inSize = 0;
+
+    for (size_t i = 0; i < m_node->m_ports.size(); ++i) {
+        const auto& p = m_node->m_ports.at(i);
+
+        if (inSize >= idx)
+            return p->m_id;
+
+        if (!p->m_output)
+            inSize += p->m_channels.size();
+    }
+
+    return 0;
+}
+
+uint32_t CGraphNode::outPortToID(size_t idx) {
+    size_t outSize = 0;
+
+    for (size_t i = 0; i < m_node->m_ports.size(); ++i) {
+        const auto& p = m_node->m_ports.at(i);
+
+        if (outSize >= idx)
+            return p->m_id;
+
+        if (p->m_output)
+            outSize += p->m_channels.size();
     }
 
     return 0;

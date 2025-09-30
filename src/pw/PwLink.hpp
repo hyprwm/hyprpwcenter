@@ -16,6 +16,7 @@ class IPwNode;
 class CPipewireLink {
   public:
     CPipewireLink(uint32_t id, uint32_t permissions, const char* type, uint32_t version, const spa_dict* props);
+    CPipewireLink(uint32_t nodeA, uint32_t nodeB, uint32_t portA, uint32_t portB);
     ~CPipewireLink();
 
     uint32_t          m_id = 0;

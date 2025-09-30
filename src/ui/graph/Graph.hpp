@@ -31,14 +31,19 @@ class CGraphView {
     void                                connect(SP<CGraphNode> a, SP<CGraphNode> b, size_t portA, size_t portB, WP<CPipewireLink> link);
     void                                updateAllConnections(SP<CGraphNode> withNode = nullptr);
 
+    void                                endDrag();
+
     SP<Hyprtoolkit::CNullElement>       m_container;
     SP<Hyprtoolkit::CScrollAreaElement> m_scrollArea;
 
     std::vector<SP<CGraphNode>>         m_nodes;
     std::vector<SP<CGraphConnection>>   m_connections;
+    SP<CGraphConnection>                m_liveConnection;
 
     Hyprutils::Math::Vector2D           m_posAtStart, m_lastMousePos, m_elementPosAtStart;
     SP<CGraphNode>                      m_draggingNode;
+    size_t                              m_startedPort      = 0;
+    bool                                m_startedPortInput = false;
 
     bool                                m_mouseDown = false;
 

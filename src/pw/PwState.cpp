@@ -149,3 +149,16 @@ void CPipewireState::checkNodePorts(WP<IPwNode> node) {
         g_ui->updateNode(node);
     }
 }
+
+void CPipewireState::linkOrUnlink(WP<IPwNode> a, WP<IPwNode> b, uint32_t portA, uint32_t portB) {
+    auto it = std::ranges::find_if(
+        m_pwState.links, [a, b, portA, portB](const auto& l) { return l->m_nodeAID == a->m_id && l->m_nodeBID == b->m_id && l->m_portAID == portA && l->m_portBID == portB; });
+
+    if (it != m_pwState.links.end()) {
+        m_pwState.links.erase(it);
+        return;
+    }
+
+    auto x    = m_pwState.links.emplace_back(makeShared<CPipewireLink>(a->m_id, b->m_id, portA, portB));
+    x->m_self = x;
+}

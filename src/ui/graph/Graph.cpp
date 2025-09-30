@@ -3,6 +3,7 @@
 #include "../UI.hpp"
 #include "../../pw/IPwNode.hpp"
 #include "../../pw/PwLink.hpp"
+#include "../../pw/PwState.hpp"
 
 #include <ranges>
 
@@ -54,16 +55,28 @@ CGraphView::CGraphView() {
 
             if (m_draggingNode) {
                 const auto newPos = DELTA + m_elementPosAtStart;
-                m_draggingNode->setPos(newPos);
-                updateAllConnections(m_draggingNode);
+
+                if (m_liveConnection)
+                    m_liveConnection->updateDest(newPos);
+                else {
+                    m_draggingNode->setPos(newPos);
+                    updateAllConnections(m_draggingNode);
+                }
+
             } else {
                 const auto newPos = -DELTA + m_elementPosAtStart;
                 m_scrollArea->setScroll(newPos);
             }
         }
     });
-    m_container->setMouseEnter([this](const Vector2D& local) { m_mouseDown = false; });
-    m_container->setMouseLeave([this]() { m_mouseDown = false; });
+    m_container->setMouseEnter([this](const Vector2D& local) {
+        m_mouseDown = false;
+        endDrag();
+    });
+    m_container->setMouseLeave([this]() {
+        m_mouseDown = false;
+        endDrag();
+    });
     m_container->setMouseButton([this](Hyprtoolkit::Input::eMouseButton button, bool down) {
         if (down) {
             m_posAtStart = m_lastMousePos;
@@ -71,13 +84,25 @@ CGraphView::CGraphView() {
             m_mouseDown = true;
 
             m_draggingNode = nodeFromCoord(m_lastMousePos);
-            if (m_draggingNode)
-                m_elementPosAtStart = m_draggingNode->pos();
-            else
+            if (m_draggingNode) {
+
+                // try to get anchor
+                auto port = m_draggingNode->outputFromPos(m_lastMousePos);
+                if (port) {
+                    m_startedPortInput       = false;
+                    m_startedPort            = port.value();
+                    m_liveConnection         = makeShared<CGraphConnection>(m_draggingNode, m_startedPort, m_lastMousePos);
+                    m_liveConnection->m_view = m_self;
+                    m_container->addChild(m_liveConnection->m_line);
+                    m_elementPosAtStart = m_lastMousePos;
+                } else
+
+                    m_elementPosAtStart = m_draggingNode->pos();
+            } else
                 m_elementPosAtStart = m_scrollArea->getCurrentScroll();
         } else {
             m_mouseDown = false;
-            m_draggingNode.reset();
+            endDrag();
         }
     });
 
@@ -88,6 +113,21 @@ CGraphView::CGraphView() {
 }
 
 CGraphView::~CGraphView() = default;
+
+void CGraphView::endDrag() {
+    if (m_liveConnection && m_draggingNode && m_draggingNode->m_node) {
+        // try to connect it
+        auto node = nodeFromCoord(m_lastMousePos);
+        if (node && node->m_node) {
+            auto port = node->inputFromPos(m_lastMousePos);
+            if (port)
+                g_pipewire->linkOrUnlink(m_draggingNode->m_node, node->m_node, m_draggingNode->outPortToID(m_startedPort), node->inPortToID(port.value()));
+        }
+    }
+
+    m_liveConnection.reset();
+    m_draggingNode.reset();
+}
 
 constexpr const float COLUMN_GAP  = 400.F;
 constexpr const float ELEMENT_GAP = 40.F;

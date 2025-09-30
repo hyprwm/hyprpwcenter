@@ -64,7 +64,26 @@ CPipewireLink::CPipewireLink(uint32_t id, uint32_t permissions, const char* type
     pw_link_add_listener(m_proxy, &m_listener, &LINK_EVENTS, this);
 }
 
+CPipewireLink::CPipewireLink(uint32_t nodeA, uint32_t nodeB, uint32_t portA, uint32_t portB) {
+    pw_properties* props = pw_properties_new(PW_KEY_LINK_OUTPUT_NODE, std::to_string(nodeA).c_str(), PW_KEY_LINK_OUTPUT_PORT, std::to_string(portA).c_str(), PW_KEY_LINK_INPUT_NODE,
+                                             std::to_string(nodeB).c_str(), PW_KEY_LINK_INPUT_PORT, std::to_string(portB).c_str(), PW_KEY_LINK_PASSIVE, "false", nullptr);
+
+    auto           proxy = rc<pw_link*>(pw_core_create_object(g_pipewire->m_pwState.core, "link-factory", PW_TYPE_INTERFACE_Link, PW_VERSION_LINK, &props->dict, 0));
+    pw_properties_free(props);
+
+    if (!proxy)
+        return;
+
+    m_proxy = proxy;
+
+    spa_zero(m_listener);
+    pw_link_add_listener(m_proxy, &m_listener, &LINK_EVENTS, this);
+}
+
 CPipewireLink::~CPipewireLink() {
+    if (g_ui)
+        g_ui->removeLink(m_self);
+
     if (!m_proxy)
         return;
 

@@ -25,6 +25,16 @@ CGraphConnection::CGraphConnection(WP<CGraphNode> a, size_t portA, WP<CGraphNode
     update();
 }
 
+CGraphConnection::CGraphConnection(WP<CGraphNode> a, size_t portA, const Hyprutils::Math::Vector2D& pos) : m_a(a), m_portA(portA), m_isDest(true), m_dest(pos) {
+    m_line = Hyprtoolkit::CLineBuilder::begin()
+                 ->thick(LINE_THICK)
+                 ->size({Hyprtoolkit::CDynamicSize::HT_SIZE_ABSOLUTE, Hyprtoolkit::CDynamicSize::HT_SIZE_ABSOLUTE, {}})
+                 ->color([] { return g_ui->m_backend->getPalette()->m_colors.accent; })
+                 ->commence();
+
+    update();
+}
+
 CGraphConnection::~CGraphConnection() {
     if (!m_view)
         return;
@@ -33,11 +43,14 @@ CGraphConnection::~CGraphConnection() {
 }
 
 void CGraphConnection::update() {
-    if (!m_a || !m_b)
+    if (!m_a)
+        return;
+
+    if (!m_isDest && !m_b)
         return;
 
     auto posA = m_a->getOutputPos(m_portA);
-    auto posB = m_b->getInputPos(m_portB);
+    auto posB = m_b ? m_b->getInputPos(m_portB) : m_dest;
 
     if (posA == Vector2D{} || posB == Vector2D{}) {
         m_line->rebuild()->size({Hyprtoolkit::CDynamicSize::HT_SIZE_ABSOLUTE, Hyprtoolkit::CDynamicSize::HT_SIZE_ABSOLUTE, {}})->points({})->commence();
@@ -73,4 +86,9 @@ void CGraphConnection::update() {
 
     m_line->rebuild()->size({Hyprtoolkit::CDynamicSize::HT_SIZE_ABSOLUTE, Hyprtoolkit::CDynamicSize::HT_SIZE_ABSOLUTE, box.size()})->points(std::move(points))->commence();
     m_line->setAbsolutePosition(box.pos());
+}
+
+void CGraphConnection::updateDest(const Hyprutils::Math::Vector2D& pos) {
+    m_dest = pos;
+    update();
 }

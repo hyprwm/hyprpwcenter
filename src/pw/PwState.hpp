@@ -37,6 +37,8 @@ class CPipewireState {
     void addPortToNode(WP<CPipewirePort> port);
     void checkNodePorts(WP<IPwNode> node);
 
+    void linkOrUnlink(WP<IPwNode> a, WP<IPwNode> b, uint32_t portA, uint32_t portB);
+
   private:
     struct {
         pw_main_loop*                    loop;

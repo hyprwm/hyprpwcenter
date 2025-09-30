@@ -36,8 +36,14 @@ class CGraphNode {
     Hyprutils::Math::Vector2D          getInputPos(size_t idx);
     Hyprutils::Math::Vector2D          getOutputPos(size_t idx);
 
+    std::optional<size_t>              inputFromPos(const Hyprutils::Math::Vector2D&);
+    std::optional<size_t>              outputFromPos(const Hyprutils::Math::Vector2D&);
+
     // can be I or O
-    size_t         portFromID(size_t id);
+    size_t portFromID(size_t id);
+    //
+    uint32_t       inPortToID(size_t idx);
+    uint32_t       outPortToID(size_t idx);
 
     void           update();
     eNodePolarity  nodePolarity();
