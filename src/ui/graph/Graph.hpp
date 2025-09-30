@@ -29,6 +29,7 @@ class CGraphView {
     SP<CGraphNode>                      nodeFromID(size_t x);
 
     void                                connect(SP<CGraphNode> a, SP<CGraphNode> b, size_t portA, size_t portB, WP<CPipewireLink> link);
+    void                                scheduleUpdateConnections();
     void                                updateAllConnections(SP<CGraphNode> withNode = nullptr);
 
     void                                endDrag();
@@ -42,8 +43,11 @@ class CGraphView {
 
     Hyprutils::Math::Vector2D           m_posAtStart, m_lastMousePos, m_elementPosAtStart;
     SP<CGraphNode>                      m_draggingNode;
-    size_t                              m_startedPort      = 0;
-    bool                                m_startedPortInput = false;
+    size_t                              m_startedPort          = 0;
+    bool                                m_startedPortInput     = false;
+    bool                                m_needsFirstReposition = true;
+
+    bool                                m_setUpdateConnections = false;
 
     bool                                m_mouseDown = false;
 

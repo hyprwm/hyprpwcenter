@@ -105,6 +105,25 @@ CGraphView::CGraphView() {
             endDrag();
         }
     });
+    m_container->setRepositioned([this] {
+        scheduleUpdateConnections();
+
+        if (!m_needsFirstReposition)
+            return;
+
+        if (m_nodes.empty())
+            return;
+
+        // FIXME: this needs a better way in the toolkit, possibly something like
+        // isReady() for text.
+        for (const auto& n : m_nodes) {
+            if (n->size().y == 0)
+                return;
+        }
+
+        m_needsFirstReposition = false;
+        rearrange();
+    });
 
     m_background->addChild(m_scrollArea);
     m_scrollArea->addChild(m_container);
@@ -147,7 +166,7 @@ void CGraphView::rearrange() {
             case CGraphNode::NODE_OUTPUT:
                 n->setPos(m_initialPos + Vector2D{0.F, m_inOffset});
                 size = n->size().y;
-                if (size == 0) // FIXME: this requires something in the toolkit to fix. We have to asynchronously wait for the text...
+                if (size == 0)
                     size = 150;
                 m_inOffset += size + ELEMENT_GAP;
                 break;
@@ -170,7 +189,7 @@ void CGraphView::rearrange() {
         }
     }
 
-    updateAllConnections();
+    scheduleUpdateConnections();
 }
 
 void CGraphView::addNode(WP<IPwNode> node) {
@@ -184,13 +203,13 @@ void CGraphView::addNode(WP<IPwNode> node) {
     x->m_view = m_self;
     m_container->addChild(x->m_background);
 
-    updateAllConnections();
+    scheduleUpdateConnections();
 }
 
 void CGraphView::removeNode(WP<IPwNode> node) {
     std::erase_if(m_nodes, [node](const auto& e) { return !e || !e->m_node || e->m_node == node; });
 
-    updateAllConnections();
+    scheduleUpdateConnections();
 }
 
 void CGraphView::addLink(WP<CPipewireLink> link) {
@@ -237,4 +256,20 @@ void CGraphView::connect(SP<CGraphNode> a, SP<CGraphNode> b, size_t portA, size_
     auto x    = m_connections.emplace_back(makeShared<CGraphConnection>(a, portA, b, portB, link));
     x->m_view = m_self;
     m_container->addChild(x->m_line);
+}
+
+void CGraphView::scheduleUpdateConnections() {
+    if (m_setUpdateConnections || !m_self /* too early */)
+        return;
+
+    m_setUpdateConnections = true;
+
+    g_ui->m_backend->addIdle([this, self = m_self] {
+        if (!self)
+            return;
+
+        m_setUpdateConnections = false;
+
+        updateAllConnections();
+    });
 }
