@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "../helpers/Memory.hpp"
+#include "PwPort.hpp"
 
 extern "C" {
 #include <spa/param/audio/raw.h>
@@ -26,7 +27,7 @@ class IPwNode {
     bool                           m_muted  = false;
     bool                           m_isApp  = false;
 
-    std::vector<spa_audio_channel> m_channelsOut;
+    std::vector<WP<CPipewirePort>> m_ports;
 
     WP<IPwNode>                    m_self;
 };

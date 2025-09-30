@@ -77,23 +77,61 @@ CGraphView::CGraphView() {
     m_background->addChild(m_scrollArea);
     m_scrollArea->addChild(m_container);
 
-    m_lastInitialPos = Vector2D{(CANVAS_SIZE / 2.F) - 200.F, (CANVAS_SIZE / 2.F) - 200.F};
-    m_scrollArea->setScroll(m_lastInitialPos - Vector2D{40.F, 40.F});
+    rearrange();
 }
 
 CGraphView::~CGraphView() = default;
 
-void CGraphView::center() {
-    m_scrollArea->setScroll(Vector2D{(CANVAS_SIZE / 2.F) - 200.F, (CANVAS_SIZE / 2.F) - 200.F} - Vector2D{40.F, 40.F});
+constexpr const float COLUMN_GAP  = 400.F;
+constexpr const float ELEMENT_GAP = 40.F;
+
+//
+void CGraphView::rearrange() {
+    m_initialPos = Vector2D{(CANVAS_SIZE / 2.F) - 200.F, (CANVAS_SIZE / 2.F) - 200.F};
+    m_scrollArea->setScroll(m_initialPos - Vector2D{40.F, 40.F});
+
+    m_inOffset  = 20;
+    m_outOffset = 20;
+    m_ioOffset  = 20;
+
+    for (const auto& n : m_nodes) {
+        float size = 0;
+        switch (n->nodePolarity()) {
+            case CGraphNode::NODE_OUTPUT:
+                n->setPos(m_initialPos + Vector2D{0.F, m_inOffset});
+                size = n->size().y;
+                if (size == 0) // FIXME: this requires something in the toolkit to fix. We have to asynchronously wait for the text...
+                    size = 150;
+                m_inOffset += size + ELEMENT_GAP;
+                break;
+
+            case CGraphNode::NODE_IO:
+                n->setPos(m_initialPos + Vector2D{COLUMN_GAP, m_ioOffset});
+                size = n->size().y;
+                if (size == 0)
+                    size = 150;
+                m_ioOffset += size + ELEMENT_GAP;
+                break;
+
+            case CGraphNode::NODE_INPUT:
+                n->setPos(m_initialPos + Vector2D{COLUMN_GAP * 2, m_inOffset});
+                size = n->size().y;
+                if (size == 0)
+                    size = 150;
+                m_inOffset += size + ELEMENT_GAP;
+                break;
+        }
+    }
 }
 
 void CGraphView::addNode(WP<IPwNode> node) {
-    if (std::ranges::find_if(m_nodes, [node](const auto& e) { return e->m_node == node; }) != m_nodes.end())
+    auto it = std::ranges::find_if(m_nodes, [node](const auto& e) { return e->m_node == node; });
+    if (it != m_nodes.end()) {
+        (*it)->update();
         return;
+    }
 
-    m_lastInitialPos += Vector2D{0, 100}; // FIXME: this sucks XD
-
-    auto x    = m_nodes.emplace_back(makeShared<CGraphNode>(node, m_lastInitialPos));
+    auto x    = m_nodes.emplace_back(makeShared<CGraphNode>(node, m_initialPos));
     x->m_view = m_self;
     m_container->addChild(x->m_background);
 }

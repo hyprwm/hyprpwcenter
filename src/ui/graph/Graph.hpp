@@ -14,7 +14,7 @@ class CGraphView {
     void                               addNode(WP<IPwNode> node);
     void                               removeNode(WP<IPwNode> node);
 
-    void                               center();
+    void                               rearrange();
 
     SP<Hyprtoolkit::CRectangleElement> m_background;
 
@@ -33,7 +33,8 @@ class CGraphView {
 
     bool                                m_mouseDown = false;
 
-    Hyprutils::Math::Vector2D           m_lastInitialPos = {};
+    Hyprutils::Math::Vector2D           m_initialPos = {};
+    float                               m_inOffset = 0, m_outOffset = 0, m_ioOffset = 0;
 
     friend class CGraphNode;
 };

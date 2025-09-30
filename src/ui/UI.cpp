@@ -272,5 +272,5 @@ void CUI::changeTab(size_t idx) {
     }
 
     if (idx == 4)
-        m_tabs.graphTab.graphView->center();
+        m_tabs.graphTab.graphView->rearrange();
 }

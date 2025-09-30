@@ -16,6 +16,12 @@ class CGraphView;
 
 class CGraphNode {
   public:
+    enum eNodePolarity : uint8_t {
+        NODE_OUTPUT,
+        NODE_IO,
+        NODE_INPUT,
+    };
+
     CGraphNode(WP<IPwNode> node, const Hyprutils::Math::Vector2D& initialPos);
     ~CGraphNode();
 
@@ -23,9 +29,11 @@ class CGraphNode {
 
     bool                               contains(const Hyprutils::Math::Vector2D&);
     Hyprutils::Math::Vector2D          pos();
+    Hyprutils::Math::Vector2D          size();
     void                               setPos(const Hyprutils::Math::Vector2D&);
 
     void                               update();
+    eNodePolarity                      nodePolarity();
 
     WP<IPwNode>                        m_node;
     WP<CGraphView>                     m_view;
@@ -37,8 +45,10 @@ class CGraphNode {
 
     struct SAnchor {
         SP<Hyprtoolkit::CNullElement>      anchorPad;
-        SP<Hyprtoolkit::CRectangleElement> anchor;
+        SP<Hyprtoolkit::CRectangleElement> rightAnchor;
+        SP<Hyprtoolkit::CRectangleElement> leftAnchor;
         SP<Hyprtoolkit::CTextElement>      rightText;
+        SP<Hyprtoolkit::CTextElement>      leftText;
     };
 
     std::vector<SP<SAnchor>>  m_anchors;

@@ -40,12 +40,13 @@ static void onNodeParam(void* data, int seq, uint32_t id, uint32_t index, uint32
     spa_pod_object*     obj = (spa_pod_object*)param;
 
     SPA_POD_OBJECT_FOREACH(obj, p) {
-        Debug::log(LOG, "Node {} -> has prop {}", node->m_name, p->key);
 
         if (p->key == SPA_PROP_channelVolumes) {
             if (spa_pod_is_array(&p->value)) {
                 uint32_t     n = SPA_POD_ARRAY_N_VALUES(&p->value);
                 const float* v = rc<const float*>(SPA_POD_ARRAY_VALUES(&p->value));
+
+                node->m_volChannels = n;
 
                 if (n == 0)
                     continue;
@@ -72,21 +73,6 @@ static void onNodeParam(void* data, int seq, uint32_t id, uint32_t index, uint32
             if (spa_pod_is_bool(&p->value))
                 spa_pod_get_bool(&p->value, &node->m_muted);
 
-            continue;
-        }
-
-        if (p->key == SPA_PROP_channelMap) {
-            if (spa_pod_is_array(&p->value)) {
-                const spa_pod_array* arr = rc<const spa_pod_array*>(&p->value);
-                uint32_t             n   = SPA_POD_ARRAY_N_VALUES(arr);
-                const uint32_t*      ids = rc<const uint32_t*>(SPA_POD_ARRAY_VALUES(arr));
-
-                node->m_channelsOut.clear();
-                node->m_channelsOut.resize(n);
-                for (size_t i = 0; i < n; ++i) {
-                    node->m_channelsOut.at(i) = sc<spa_audio_channel>(ids[i]);
-                }
-            }
             continue;
         }
     }
@@ -147,8 +133,8 @@ void CPipewireNode::setVolume(float x) {
     }
 
     std::vector<float> volumes;
-    volumes.resize(m_channelsOut.size());
-    for (size_t i = 0; i < m_channelsOut.size(); i++) {
+    volumes.resize(m_volChannels);
+    for (size_t i = 0; i < m_volChannels; i++) {
         volumes.at(i) = x;
     }
 
