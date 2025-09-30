@@ -64,9 +64,8 @@ CGraphView::CGraphView() {
                 }
 
             } else {
-                const auto newPos = -DELTA + m_elementPosAtStart;
-                m_scrollArea->setScroll(newPos);
-                m_elementPosAtStart = m_scrollArea->getCurrentScroll();
+                const auto W_DELTA = g_ui->m_window->cursorPos() - m_rawPosAtStart;
+                m_scrollArea->setScroll(m_elementPosAtStart - W_DELTA);
             }
         }
     });
@@ -80,7 +79,8 @@ CGraphView::CGraphView() {
     });
     m_container->setMouseButton([this](Hyprtoolkit::Input::eMouseButton button, bool down) {
         if (down) {
-            m_posAtStart = m_lastMousePos;
+            m_posAtStart    = m_lastMousePos;
+            m_rawPosAtStart = g_ui->m_window->cursorPos();
 
             m_mouseDown = true;
 

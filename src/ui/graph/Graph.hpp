@@ -42,7 +42,7 @@ class CGraphView {
     std::vector<SP<CGraphConnection>>   m_connections;
     SP<CGraphConnection>                m_liveConnection;
 
-    Hyprutils::Math::Vector2D           m_posAtStart, m_lastMousePos, m_elementPosAtStart;
+    Hyprutils::Math::Vector2D           m_posAtStart, m_lastMousePos, m_elementPosAtStart, m_rawPosAtStart;
     SP<CGraphNode>                      m_draggingNode;
     size_t                              m_startedPort          = 0;
     bool                                m_startedPortInput     = false;
