@@ -8,6 +8,7 @@
 #include <hyprtoolkit/element/Null.hpp>
 #include <hyprtoolkit/element/Button.hpp>
 #include <hyprtoolkit/element/ScrollArea.hpp>
+#include <hyprtoolkit/element/Line.hpp>
 
 #include "../../helpers/Memory.hpp"
 
@@ -32,11 +33,17 @@ class CGraphNode {
     Hyprutils::Math::Vector2D          size();
     void                               setPos(const Hyprutils::Math::Vector2D&);
 
-    void                               update();
-    eNodePolarity                      nodePolarity();
+    Hyprutils::Math::Vector2D          getInputPos(size_t idx);
+    Hyprutils::Math::Vector2D          getOutputPos(size_t idx);
 
-    WP<IPwNode>                        m_node;
-    WP<CGraphView>                     m_view;
+    // can be I or O
+    size_t         portFromID(size_t id);
+
+    void           update();
+    eNodePolarity  nodePolarity();
+
+    WP<IPwNode>    m_node;
+    WP<CGraphView> m_view;
 
   private:
     SP<Hyprtoolkit::CColumnLayoutElement> m_layoutInside;

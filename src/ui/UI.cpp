@@ -246,6 +246,16 @@ void CUI::deviceRemoved(WP<CPipewireDevice> node) {
     std::erase_if(m_tabs.configTab.deviceConfigs, [node](const auto& e) { return !e || e->m_id == node->m_id; });
 }
 
+void CUI::updateLink(WP<CPipewireLink> link) {
+    if (m_tabs.graphTab.graphView)
+        m_tabs.graphTab.graphView->addLink(link);
+}
+
+void CUI::removeLink(WP<CPipewireLink> link) {
+    if (m_tabs.graphTab.graphView)
+        m_tabs.graphTab.graphView->removeLink(link);
+}
+
 void CUI::changeTab(size_t idx) {
     if (idx == m_tab)
         return;

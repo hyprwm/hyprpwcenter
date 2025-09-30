@@ -1,9 +1,15 @@
 #include "Graph.hpp"
+#include "GraphConnection.hpp"
 #include "../UI.hpp"
+#include "../../pw/IPwNode.hpp"
+#include "../../pw/PwLink.hpp"
 
 #include <ranges>
 
+#include <hyprutils/animation/BezierCurve.hpp>
+
 using namespace Hyprutils::Math;
+using namespace Hyprutils::Animation;
 
 constexpr float CANVAS_SIZE = 10000.F;
 
@@ -49,6 +55,7 @@ CGraphView::CGraphView() {
             if (m_draggingNode) {
                 const auto newPos = DELTA + m_elementPosAtStart;
                 m_draggingNode->setPos(newPos);
+                updateAllConnections(m_draggingNode);
             } else {
                 const auto newPos = -DELTA + m_elementPosAtStart;
                 m_scrollArea->setScroll(newPos);
@@ -122,6 +129,8 @@ void CGraphView::rearrange() {
                 break;
         }
     }
+
+    updateAllConnections();
 }
 
 void CGraphView::addNode(WP<IPwNode> node) {
@@ -134,10 +143,28 @@ void CGraphView::addNode(WP<IPwNode> node) {
     auto x    = m_nodes.emplace_back(makeShared<CGraphNode>(node, m_initialPos));
     x->m_view = m_self;
     m_container->addChild(x->m_background);
+
+    updateAllConnections();
 }
 
 void CGraphView::removeNode(WP<IPwNode> node) {
     std::erase_if(m_nodes, [node](const auto& e) { return !e || !e->m_node || e->m_node == node; });
+
+    updateAllConnections();
+}
+
+void CGraphView::addLink(WP<CPipewireLink> link) {
+    auto nodeA = nodeFromID(link->m_nodeAID);
+    auto nodeB = nodeFromID(link->m_nodeBID);
+
+    auto portA = nodeA->portFromID(link->m_portAID);
+    auto portB = nodeB->portFromID(link->m_portBID);
+
+    connect(nodeA, nodeB, portA, portB, link);
+}
+
+void CGraphView::removeLink(WP<CPipewireLink> link) {
+    std::erase_if(m_connections, [link](const auto& c) { return !c || !c->m_link || c->m_link == link; });
 }
 
 SP<CGraphNode> CGraphView::nodeFromCoord(const Hyprutils::Math::Vector2D& pos) {
@@ -147,4 +174,27 @@ SP<CGraphNode> CGraphView::nodeFromCoord(const Hyprutils::Math::Vector2D& pos) {
     }
 
     return nullptr;
+}
+
+SP<CGraphNode> CGraphView::nodeFromID(size_t x) {
+    for (const auto& n : m_nodes | std::ranges::views::reverse) {
+        if (n->m_node && n->m_node->m_id == x)
+            return n;
+    }
+
+    return nullptr;
+}
+
+void CGraphView::updateAllConnections(SP<CGraphNode> withNode) {
+    for (const auto& c : m_connections) {
+        if (withNode && c->m_a != withNode && c->m_b != withNode)
+            continue;
+        c->update();
+    }
+}
+
+void CGraphView::connect(SP<CGraphNode> a, SP<CGraphNode> b, size_t portA, size_t portB, WP<CPipewireLink> link) {
+    auto x    = m_connections.emplace_back(makeShared<CGraphConnection>(a, portA, b, portB, link));
+    x->m_view = m_self;
+    m_container->addChild(x->m_line);
 }

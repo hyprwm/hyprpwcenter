@@ -177,3 +177,45 @@ CGraphNode::eNodePolarity CGraphNode::nodePolarity() {
 Vector2D CGraphNode::size() {
     return m_background->size();
 }
+
+Vector2D CGraphNode::getInputPos(size_t idx) {
+    if (idx >= m_anchors.size())
+        return {};
+
+    const auto& anchor = m_anchors.at(idx);
+
+    if (!anchor->leftAnchor)
+        return {};
+
+    return m_pos + m_layoutInside->posFromParent() + anchor->leftAnchor->posFromParent() + anchor->anchorPad->posFromParent() + anchor->leftAnchor->size() / 2.F;
+}
+
+Vector2D CGraphNode::getOutputPos(size_t idx) {
+    if (idx >= m_anchors.size())
+        return {};
+
+    const auto& anchor = m_anchors.at(idx);
+
+    if (!anchor->rightAnchor)
+        return {};
+
+    return m_pos + m_layoutInside->posFromParent() + anchor->rightAnchor->posFromParent() + anchor->anchorPad->posFromParent() + anchor->rightAnchor->size() / 2.F;
+}
+
+size_t CGraphNode::portFromID(size_t id) {
+    size_t inSize = 0, outSize = 0;
+
+    for (size_t i = 0; i < m_node->m_ports.size(); ++i) {
+        const auto& p = m_node->m_ports.at(i);
+
+        if (p->m_id == id)
+            return p->m_output ? outSize : inSize;
+
+        if (p->m_output)
+            outSize += p->m_channels.size();
+        else
+            inSize += p->m_channels.size();
+    }
+
+    return 0;
+}

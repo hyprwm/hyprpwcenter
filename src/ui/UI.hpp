@@ -15,6 +15,7 @@
 class CNodeVolumeSlider;
 class IPwNode;
 class CPipewireDevice;
+class CPipewireLink;
 class CDeviceConfig;
 class CGraphView;
 
@@ -31,6 +32,8 @@ class CUI {
     void updateDevice(WP<CPipewireDevice> node);
     void nodeRemoved(WP<IPwNode> node);
     void deviceRemoved(WP<CPipewireDevice> node);
+    void updateLink(WP<CPipewireLink> link);
+    void removeLink(WP<CPipewireLink> link);
 
   private:
     void                                  changeTab(size_t idx);
@@ -82,6 +85,7 @@ class CUI {
     friend class CDeviceConfig;
     friend class CGraphView;
     friend class CGraphNode;
+    friend class CGraphConnection;
 };
 
 inline UP<CUI> g_ui;

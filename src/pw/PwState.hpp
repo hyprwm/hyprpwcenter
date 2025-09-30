@@ -3,6 +3,7 @@
 #include "PwNode.hpp"
 #include "PwDevice.hpp"
 #include "PwPort.hpp"
+#include "PwLink.hpp"
 #include "IPwNode.hpp"
 
 extern "C" {
@@ -47,12 +48,14 @@ class CPipewireState {
         std::vector<SP<IPwNode>>         nodes;
         std::vector<SP<CPipewireDevice>> devices;
         std::vector<SP<CPipewirePort>>   ports;
+        std::vector<SP<CPipewireLink>>   links;
     } m_pwState;
 
     friend class CPipewireNode;
     friend class CPipewireClient;
     friend class CPipewireDevice;
     friend class CPipewirePort;
+    friend class CPipewireLink;
 };
 
 inline UP<CPipewireState> g_pipewire;

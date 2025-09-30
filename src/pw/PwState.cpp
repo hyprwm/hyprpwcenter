@@ -83,6 +83,9 @@ void CPipewireState::onGlobal(uint32_t id, uint32_t permissions, const char* typ
         auto x    = m_pwState.ports.emplace_back(makeShared<CPipewirePort>(id, permissions, type, version, props));
         x->m_self = x;
         addPortToNode(x);
+    } else if (SV == PW_TYPE_INTERFACE_Link) {
+        auto x    = m_pwState.links.emplace_back(makeShared<CPipewireLink>(id, permissions, type, version, props));
+        x->m_self = x;
     }
 }
 
