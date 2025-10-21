@@ -37,8 +37,8 @@ stdenv.mkDerivation {
   ];
 
   meta = {
-    homepage = "https://github.com/hyprwm/hyprwire";
-    description = "A fast and consistent wire protocol for IPC";
+    homepage = "https://github.com/hyprwm/hyprpwcenter";
+    description = "A GUI Pipewire control center";
     license = lib.licenses.bsd3;
     platforms = lib.platforms.linux;
   };
