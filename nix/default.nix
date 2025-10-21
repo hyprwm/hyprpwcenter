@@ -12,11 +12,10 @@
   libdrm,
   pixman,
   version ? "git",
-  doCheck ? false,
 }:
 stdenv.mkDerivation {
   pname = "hyprpwcenter";
-  inherit version doCheck;
+  inherit version;
 
   src = ../.;
 

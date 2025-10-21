@@ -64,7 +64,7 @@
 
       packages = eachSystem (system: {
         default = self.packages.${system}.hyprpwcenter;
-        inherit (pkgsFor.${system}) hyprpwcenter hyprpwcenter-with-tests;
+        inherit (pkgsFor.${system}) hyprpwcenter;
       });
 
       checks = eachSystem (system: self.packages.${system});

@@ -32,7 +32,6 @@ in
           + "_"
           + (inputs.self.shortRev or "dirty");
       };
-      hyprpwcenter-with-tests = final.hyprpwcenter.override { doCheck = true; };
     })
   ];
 }
