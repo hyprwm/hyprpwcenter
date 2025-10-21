@@ -54,4 +54,8 @@ add_executable(hyprpwcenter ${SRCFILES})
 
 target_link_libraries(hyprpwcenter PkgConfig::deps)
 
+install(
+  FILES contrib/hyprpwcenter.desktop
+  DESTINATION "share/applications")
+
 install(TARGETS hyprpwcenter)
