@@ -62,5 +62,6 @@ stdenv.mkDerivation {
     description = "A GUI Pipewire control center";
     license = lib.licenses.bsd3;
     platforms = lib.platforms.linux;
+    mainProgram = "hyprpwcenter";
   };
 }
