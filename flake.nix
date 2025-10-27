@@ -26,6 +26,9 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
+        aquamarine.follows = "aquamarine";
+        hyprgraphics.follows = "hyprgraphics";
+        hyprutils.follows = "hyprutils";
       };
     };
 
