@@ -13,7 +13,7 @@ constexpr float MAIN_PADDING  = 10;
 constexpr float SMALL_PADDING = 6;
 
 CUI::CUI() {
-    m_backend = Hyprtoolkit::CBackend::create();
+    m_backend = Hyprtoolkit::IBackend::create();
     m_window  = Hyprtoolkit::CWindowBuilder::begin()->appTitle("Pipewire Control Center")->appClass("hyprpwcenter")->commence();
 
     m_background = Hyprtoolkit::CRectangleBuilder::begin()->color([this] { return m_backend->getPalette()->m_colors.background; })->commence();

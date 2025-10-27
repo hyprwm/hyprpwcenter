@@ -44,7 +44,7 @@ class CUI {
 
     size_t                                  m_tab = 1337;
 
-    SP<Hyprtoolkit::CBackend>               m_backend;
+    SP<Hyprtoolkit::IBackend>               m_backend;
     SP<Hyprtoolkit::IWindow>                m_window;
     SP<Hyprtoolkit::CRectangleElement>      m_background;
     SP<Hyprtoolkit::CColumnLayoutElement>   m_layout;
