@@ -27,4 +27,7 @@ class CPipewireDevice {
     size_t                   m_currentMode = 0;
 
     WP<CPipewireDevice>      m_self;
+
+    // maps UI index to real PipeWire profile index
+    std::vector<uint32_t>    m_modePwIdx;
 };
