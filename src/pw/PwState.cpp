@@ -89,7 +89,15 @@ void CPipewireState::onGlobal(uint32_t id, uint32_t permissions, const char* typ
     }
 }
 
+// If node goes away, drop all ports and links that belonged to it
 void CPipewireState::onGlobalRemoved(uint32_t id) {
+    // Remove links
+    std::erase_if(m_pwState.links, [id](const auto& l) { return l->m_id == id || l->m_nodeAID == id || l->m_nodeBID == id; });
+    // Remove ports
+    std::erase_if(m_pwState.ports, [id](const auto& p) { return p->m_id == id || p->m_nodeID == id; });
+    // Remove devices
+    std::erase_if(m_pwState.devices, [id](const auto& d) { return d->m_id == id; });
+    // Remove node itself
     std::erase_if(m_pwState.nodes, [id](const auto& n) { return n->m_id == id; });
 }
 
@@ -142,8 +150,9 @@ void CPipewireState::checkNodePorts(WP<IPwNode> node) {
         if (p->m_nodeID != node->m_id)
             continue;
 
+        // There might be more matching ports so continue
         if (std::ranges::contains(node->m_ports, p))
-            break;
+            continue;
 
         node->m_ports.emplace_back(p);
         g_ui->updateNode(node);
