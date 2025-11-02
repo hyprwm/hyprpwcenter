@@ -62,7 +62,7 @@ static void onDeviceParam(void* data, int seq, uint32_t id, uint32_t index, uint
         }
 
         if (p->key == SPA_PARAM_PROFILE_description) {
-            const char* x;
+            const char* x = "";
             spa_pod_get_string(&p->value, &x);
             desc = x;
             continue;
@@ -74,17 +74,39 @@ static void onDeviceParam(void* data, int seq, uint32_t id, uint32_t index, uint
 
     Debug::log(TRACE, "device {}: update profile id {}", dev->m_id, profileIdx);
 
-    if (dev->m_modes.size() <= sc<uint32_t>(profileIdx))
-        dev->m_modes.resize(profileIdx + 1);
+    // isEnum == true: we’re processing list of possible profiles
+    // isEnum == false: we’re processing current profile
+    const bool isEnum = (id == SPA_PARAM_EnumProfile);
 
-    // shoutout pipewire for absolutely fucking stellar documentation
-    // (can ANY of yous write some docs??????????)
-    if (id != SPA_PARAM_EnumProfile) {
-        Debug::log(TRACE, "device {}: id {} is current", dev->m_id, profileIdx);
-        dev->m_currentMode = profileIdx;
+    // We keep 2 parallel vectors on the device:
+    //  m_modes[i]: user-facing name
+    //  m_modePwIdx[i]: PW index
+    uint32_t uiIdx = UINT32_MAX;
+    // Figure out if we already have UI slot for this PipeWire profile index
+    for (uint32_t i = 0; i < dev->m_modePwIdx.size(); ++i) {
+        if (dev->m_modePwIdx[i] == (uint32_t)profileIdx) {
+            uiIdx = i;
+            break;
+        }
     }
 
-    dev->m_modes.at(profileIdx) = desc;
+    // If we didn't find an existing UI slot, we need to create a new entry
+    //  in both arrays to represent this newly seen profile
+    if (uiIdx == UINT32_MAX) {
+        // New entry will go at the end
+        uiIdx = dev->m_modes.size();
+        // Grow the names vector, we'll fill it later
+        dev->m_modes.emplace_back();
+        // Record real PipeWire profile index
+        dev->m_modePwIdx.push_back((uint32_t)profileIdx);
+    }
+
+    // At this point uiIdx points to the right UI slot
+    dev->m_modes[uiIdx] = desc;
+
+    // If this is "current profile", remember ui index
+    if (!isEnum)
+        dev->m_currentMode = uiIdx;
 
     g_ui->updateDevice(dev->m_self);
 }
@@ -128,13 +150,20 @@ CPipewireDevice::~CPipewireDevice() {
 }
 
 void CPipewireDevice::setMode(size_t x) {
-    if (x >= m_modes.size())
+    if (x >= m_modes.size() || x >= m_modePwIdx.size())
         return;
+
+    // Translate from UI index to real PipeWire profile index
+    uint32_t pwIdx = m_modePwIdx[x];
 
     uint8_t         buf[256];
     spa_pod_builder b    = SPA_POD_BUILDER_INIT(buf, sizeof(buf));
     const spa_pod*  prof = rc<spa_pod*>(
-        spa_pod_builder_add_object(&b, SPA_TYPE_OBJECT_ParamProfile, SPA_PARAM_Profile, SPA_PARAM_PROFILE_index, SPA_POD_Int(x), SPA_PARAM_PROFILE_save, SPA_POD_Bool(true)));
+        spa_pod_builder_add_object(
+            &b,
+            SPA_TYPE_OBJECT_ParamProfile,   SPA_PARAM_Profile,
+            SPA_PARAM_PROFILE_index,        SPA_POD_Int((int)pwIdx),
+            SPA_PARAM_PROFILE_save,         SPA_POD_Bool(true)));
 
     pw_device_set_param(m_proxy, SPA_PARAM_Profile, 0, prof);
 }
