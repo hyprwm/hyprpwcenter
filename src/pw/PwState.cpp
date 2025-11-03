@@ -101,17 +101,15 @@ void CPipewireState::onGlobalRemoved(uint32_t id) {
 
         // Port is gone
         if (isThisPort) {
-            if (p->m_node) {
+            if (p->m_node)
                 std::erase_if(p->m_node->m_ports, [id](const auto& e) { return e && e->m_id == id; });
-            }
             return true;
         }
 
         // Node this port belonged to is gone
         if (isPortsNode) {
-            if (p->m_node) {
+            if (p->m_node)
                 std::erase_if(p->m_node->m_ports, [nodeId = id](const auto& e) { return e && e->m_nodeID == nodeId; });
-            }
             return true;
         }
 
