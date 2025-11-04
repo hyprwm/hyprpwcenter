@@ -156,14 +156,16 @@ void CUI::run() {
 void CUI::updateNode(WP<IPwNode> node) {
     m_tabs.graphTab.graphView->addNode(node);
 
+    const bool SHOW = !node->m_ports.empty() && (trim(node->m_name) != "" || node->m_volume > 0) && node->controllable();
+
     recheckNodeVisibility(node);
 
-    if (!node->controllable())
+    // Don't create/reuse slider when not showable
+    if (!SHOW)
         return;
 
-    const auto N = sliderFromNode(node);
-
-    if (N) {
+    // From here on the node is showable: reuse or create
+    if (const auto N = sliderFromNode(node)) {
         N->setVolume(node->m_volume);
         N->setMuted(node->m_muted);
         return;
@@ -186,8 +188,6 @@ void CUI::updateNode(WP<IPwNode> node) {
 
     x->setVolume(node->m_volume);
     x->setMuted(node->m_muted);
-
-    recheckNodeVisibility(node);
 }
 
 void CUI::nodeRemoved(WP<IPwNode> node) {
