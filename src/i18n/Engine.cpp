@@ -52,6 +52,29 @@ void I18n::initEngine() {
     engine.registerEntry("it_IT", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "Usicte attive");
     engine.registerEntry("it_IT", TXT_KEY_GRAPH_PURE_OUTPUTS, "Uscite non connesse");
 
+    // fi_FI (Finnish)
+    engine.registerEntry("fi_FI", TXT_KEY_PW_CENTER_TITLE, "Pipewire-ohjauskeskus");
+
+    engine.registerEntry("fi_FI", TXT_KEY_BUTTON_APPS, "Sovellukset");
+    engine.registerEntry("fi_FI", TXT_KEY_BUTTON_NODES, "Solmut");
+    engine.registerEntry("fi_FI", TXT_KEY_BUTTON_INPUTS, "Sisääntulot");
+    engine.registerEntry("fi_FI", TXT_KEY_BUTTON_CONFIGURATION, "Asetukset");
+    engine.registerEntry("fi_FI", TXT_KEY_BUTTON_GRAPH, "Kaavio");
+
+    engine.registerEntry("fi_FI", TXT_KEY_GRAPH_N_PORTS, [](const Hyprutils::I18n::translationVarMap& vars) {
+        const auto count = std::stoi(vars.at("count"));
+        if (count == 1)
+            return "1 portti";
+        return "{count} porttia";
+    });
+    engine.registerEntry("fi_FI", TXT_KEY_GRAPH_PURE_INPUTS, "Vain Sisääntulot");
+    engine.registerEntry("fi_FI", TXT_KEY_GRAPH_ACTIVE_INPUTS, "Aktiiviset Sisääntulot");
+    engine.registerEntry("fi_FI", TXT_KEY_GRAPH_UNCONNECTED_IO, "Kytkemättömät Siirrännät");
+    engine.registerEntry("fi_FI", TXT_KEY_GRAPH_ACTIVE_IO, "Aktiiviset Siirrännät");
+    engine.registerEntry("fi_FI", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "Aktiiviset Ulostulot");
+    engine.registerEntry("fi_FI", TXT_KEY_GRAPH_PURE_OUTPUTS, "Vain Ulostulot");
+    //
+
     // fr_FR (French)
     engine.registerEntry("fr_FR", TXT_KEY_PW_CENTER_TITLE, "Centre de contrôle Pipewire");
 
@@ -157,6 +180,32 @@ void I18n::initEngine() {
     engine.registerEntry("pl_PL", TXT_KEY_GRAPH_ACTIVE_IO, "Aktywne wejścia/wyjścia");
     engine.registerEntry("pl_PL", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "Aktywne wyjścia");
     engine.registerEntry("pl_PL", TXT_KEY_GRAPH_PURE_OUTPUTS, "Czyste wyjścia");
+    //
+
+    // sl_SI (Slovenian)
+    engine.registerEntry("sl_SI", TXT_KEY_PW_CENTER_TITLE, "Pipewire Nadzorna Plošča");
+    engine.registerEntry("sl_SI", TXT_KEY_BUTTON_APPS, "Aplikacije");
+    engine.registerEntry("sl_SI", TXT_KEY_BUTTON_NODES, "Vozlišča");
+    engine.registerEntry("sl_SI", TXT_KEY_BUTTON_INPUTS, "Vhodi");
+    engine.registerEntry("sl_SI", TXT_KEY_BUTTON_CONFIGURATION, "Konfiguracija");
+    engine.registerEntry("sl_SI", TXT_KEY_BUTTON_GRAPH, "Graf");
+    engine.registerEntry("sl_SI", TXT_KEY_GRAPH_N_PORTS, [](const Hyprutils::I18n::translationVarMap& vars) {
+        const auto count = std::stoi(vars.at("count"));
+        if (count == 1)
+            return "{count} priključek";
+        if (count == 2)
+            return "{count} priključka";
+        if (count == 3 || count == 4)
+            return "{count} priključki";
+
+        return "{count} priključkov";
+    });
+    engine.registerEntry("sl_SI", TXT_KEY_GRAPH_PURE_INPUTS, "Čisti vhodi");
+    engine.registerEntry("sl_SI", TXT_KEY_GRAPH_ACTIVE_INPUTS, "Aktivni vhodi");
+    engine.registerEntry("sl_SI", TXT_KEY_GRAPH_UNCONNECTED_IO, "Nepovezani vhodi/izhodi");
+    engine.registerEntry("sl_SI", TXT_KEY_GRAPH_ACTIVE_IO, "Aktivni vhodi/izhodi");
+    engine.registerEntry("sl_SI", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "Aktivni izhodi");
+    engine.registerEntry("sl_SI", TXT_KEY_GRAPH_PURE_OUTPUTS, "Čisti izhodi");
     //
 
     // tr_TR (Turkish)
