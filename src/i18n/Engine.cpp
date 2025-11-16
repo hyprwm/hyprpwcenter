@@ -90,7 +90,7 @@ void I18n::initEngine() {
     //
 
     // pl_PL (Polish)
-    engine.registerEntry("ja_JP", TXT_KEY_PW_CENTER_TITLE, "Centrum Sterowania Pipewire");
+    engine.registerEntry("pl_PL", TXT_KEY_PW_CENTER_TITLE, "Centrum Sterowania Pipewire");
 
     engine.registerEntry("pl_PL", TXT_KEY_BUTTON_APPS, "Aplikacje");
     engine.registerEntry("pl_PL", TXT_KEY_BUTTON_NODES, "Node'y");
