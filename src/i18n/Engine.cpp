@@ -75,6 +75,29 @@ void I18n::initEngine() {
     engine.registerEntry("pl_PL", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "Aktywne wyjścia");
     engine.registerEntry("pl_PL", TXT_KEY_GRAPH_PURE_OUTPUTS, "Czyste wyjścia");
     //
+
+    // nl_NL (Dutch)
+    engine.registerEntry("nl_NL", TXT_KEY_PW_CENTER_TITLE, "Pipewire Controle Centrum");
+
+    engine.registerEntry("nl_NL", TXT_KEY_BUTTON_APPS, "Applicaties");
+    engine.registerEntry("nl_NL", TXT_KEY_BUTTON_NODES, "Nodes");
+    engine.registerEntry("nl_NL", TXT_KEY_BUTTON_INPUTS, "Inputs");
+    engine.registerEntry("nl_NL", TXT_KEY_BUTTON_CONFIGURATION, "Configuratie");
+    engine.registerEntry("nl_NL", TXT_KEY_BUTTON_GRAPH, "Grafiek");
+
+    engine.registerEntry("nl_NL", TXT_KEY_GRAPH_N_PORTS, [](const Hyprutils::I18n::translationVarMap& vars) {
+        const auto count = std::stoi(vars.at("count"));
+        if (count == 1)
+            return "1 poort";
+        return "{count} poorten";
+    });
+    engine.registerEntry("nl_NL", TXT_KEY_GRAPH_PURE_INPUTS, "Pure inputs");
+    engine.registerEntry("nl_NL", TXT_KEY_GRAPH_ACTIVE_INPUTS, "Actieve inputs");
+    engine.registerEntry("nl_NL", TXT_KEY_GRAPH_UNCONNECTED_IO, "Niet verbonden I/O");
+    engine.registerEntry("nl_NL", TXT_KEY_GRAPH_ACTIVE_IO, "Actieve I/O");
+    engine.registerEntry("nl_NL", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "Actieve outputs");
+    engine.registerEntry("nl_NL", TXT_KEY_GRAPH_PURE_OUTPUTS, "Pure outputs");
+    //
 }
 
 std::string I18n::localize(eTextKeys key, const Hyprutils::I18n::translationVarMap& vars) {
