@@ -52,6 +52,23 @@ void I18n::initEngine() {
     engine.registerEntry("fr_FR", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "Sorties actives");
     engine.registerEntry("fr_FR", TXT_KEY_GRAPH_PURE_OUTPUTS, "Sorties simples");
 
+    // hu_HU (Hungarian)
+    engine.registerEntry("hu_HU", TXT_KEY_PW_CENTER_TITLE, "PipeWire Vezérlőközpont");
+
+    engine.registerEntry("hu_HU", TXT_KEY_BUTTON_APPS, "Alkalmazások");
+    engine.registerEntry("hu_HU", TXT_KEY_BUTTON_NODES, "Csomópontok");
+    engine.registerEntry("hu_HU", TXT_KEY_BUTTON_INPUTS, "Bemenetek");
+    engine.registerEntry("hu_HU", TXT_KEY_BUTTON_CONFIGURATION, "Beállítások");
+    engine.registerEntry("hu_HU", TXT_KEY_BUTTON_GRAPH, "Gráf");
+
+    engine.registerEntry("hu_HU", TXT_KEY_GRAPH_N_PORTS, "{count} port");
+    engine.registerEntry("hu_HU", TXT_KEY_GRAPH_PURE_INPUTS, "Tiszta bemenetek");
+    engine.registerEntry("hu_HU", TXT_KEY_GRAPH_ACTIVE_INPUTS, "Aktív bemenetek");
+    engine.registerEntry("hu_HU", TXT_KEY_GRAPH_UNCONNECTED_IO, "Nem csatlakoztatott I/O");
+    engine.registerEntry("hu_HU", TXT_KEY_GRAPH_ACTIVE_IO, "Aktív I/O");
+    engine.registerEntry("hu_HU", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "Aktív kimenetek");
+    engine.registerEntry("hu_HU", TXT_KEY_GRAPH_PURE_OUTPUTS, "Tiszta kimenetek");
+
     // id_ID (Indonesian)
     engine.registerEntry("id_ID", TXT_KEY_PW_CENTER_TITLE, "Pusat Kontrol Pipewire");
 
