@@ -198,7 +198,7 @@ void I18n::initEngine() {
     engine.registerEntry("pl_PL", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "Aktywne wyjścia");
     engine.registerEntry("pl_PL", TXT_KEY_GRAPH_PURE_OUTPUTS, "Czyste wyjścia");
     //
-    
+
     // sr_RS (Serbian)
     engine.registerEntry("sr_RS", TXT_KEY_PW_CENTER_TITLE, "Pipewire Контролни Центар");
 
@@ -213,7 +213,7 @@ void I18n::initEngine() {
         if (count == 1)
             return "1 порт";
         if (count >= 2 && count <= 4)
-        	return "{count} порта";
+            return "{count} порта";
         return "{count} портова";
     });
     engine.registerEntry("sr_RS", TXT_KEY_GRAPH_PURE_INPUTS, "Чисти Улази");
@@ -222,7 +222,7 @@ void I18n::initEngine() {
     engine.registerEntry("sr_RS", TXT_KEY_GRAPH_ACTIVE_IO, "Активни I/O");
     engine.registerEntry("sr_RS", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "Активни Излази");
     engine.registerEntry("sr_RS", TXT_KEY_GRAPH_PURE_OUTPUTS, "Чисти Излази");
-    
+
     // sr_RS@latin (Serbian Latin)
     engine.registerEntry("sr_RS", TXT_KEY_PW_CENTER_TITLE, "Pipewire Kontrolni Centar");
 
@@ -237,7 +237,7 @@ void I18n::initEngine() {
         if (count == 1)
             return "1 port";
         if (count >= 2 && count <= 4)
-        	return "{count} porta";
+            return "{count} porta";
         return "{count} portova";
     });
     engine.registerEntry("sr_RS", TXT_KEY_GRAPH_PURE_INPUTS, "Čisti Ulazi");
