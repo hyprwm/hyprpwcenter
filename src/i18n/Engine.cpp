@@ -110,6 +110,32 @@ void I18n::initEngine() {
     engine.registerEntry("nl_NL", TXT_KEY_GRAPH_PURE_OUTPUTS, "Pure outputs");
     //
 
+    // sl_SI (Slovenian)
+    engine.registerEntry("sl_SI", TXT_KEY_PW_CENTER_TITLE, "Pipewire Nadzorna Plošča");
+    engine.registerEntry("sl_SI", TXT_KEY_BUTTON_APPS, "Aplikacije");
+    engine.registerEntry("sl_SI", TXT_KEY_BUTTON_NODES, "Vozlišča");
+    engine.registerEntry("sl_SI", TXT_KEY_BUTTON_INPUTS, "Vhodi");
+    engine.registerEntry("sl_SI", TXT_KEY_BUTTON_CONFIGURATION, "Konfiguracija");
+    engine.registerEntry("sl_SI", TXT_KEY_BUTTON_GRAPH, "Graf");
+    engine.registerEntry("sl_SI", TXT_KEY_GRAPH_N_PORTS, [](const Hyprutils::I18n::translationVarMap& vars) {
+        const auto count = std::stoi(vars.at("count"));
+        if (count == 1)
+            return "{count} priključek";
+        if (count == 2)
+            return "{count} priključka";    
+        if (count == 3 || count == 4)
+            return "{count} priključki";
+            
+        return "{count} priključkov";
+    });
+    engine.registerEntry("sl_SI", TXT_KEY_GRAPH_PURE_INPUTS, "Čisti vhodi");
+    engine.registerEntry("sl_SI", TXT_KEY_GRAPH_ACTIVE_INPUTS, "Aktivni vhodi");
+    engine.registerEntry("sl_SI", TXT_KEY_GRAPH_UNCONNECTED_IO, "Nepovezani vhodi/izhodi");
+    engine.registerEntry("sl_SI", TXT_KEY_GRAPH_ACTIVE_IO, "Aktivni vhodi/izhodi");
+    engine.registerEntry("sl_SI", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "Aktivni izhodi");
+    engine.registerEntry("sl_SI", TXT_KEY_GRAPH_PURE_OUTPUTS, "Čisti izhodi");  
+    //
+
     // pl_PL (Polish)
     engine.registerEntry("pl_PL", TXT_KEY_PW_CENTER_TITLE, "Centrum Sterowania Pipewire");
 
