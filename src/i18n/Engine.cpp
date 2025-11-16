@@ -154,6 +154,28 @@ void I18n::initEngine() {
     engine.registerEntry("tr_TR", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "Aktif Çıkışlar");
     engine.registerEntry("tr_TR", TXT_KEY_GRAPH_PURE_OUTPUTS, "Saf Çıkışlar");
     //
+
+    // el_GR (Greek)
+    engine.registerEntry("el_GR", TXT_KEY_PW_CENTER_TITLE, "Κέντρο Ελέγχου Pipewire");
+
+    engine.registerEntry("el_GR", TXT_KEY_BUTTON_APPS, "Εφαρμογές");
+    engine.registerEntry("el_GR", TXT_KEY_BUTTON_NODES, "Kόμβοι");
+    engine.registerEntry("el_GR", TXT_KEY_BUTTON_INPUTS, "Είσοδοι");
+    engine.registerEntry("el_GR", TXT_KEY_BUTTON_CONFIGURATION, "Διαμόρφωση");
+    engine.registerEntry("el_GR", TXT_KEY_BUTTON_GRAPH, "Γράφημα");
+
+    engine.registerEntry("el_GR", TXT_KEY_GRAPH_N_PORTS, [](const Hyprutils::I18n::translationVarMap& vars) {
+        const auto count = std::stoi(vars.at("count"));
+        if (count == 1)
+            return "1 θύρα";
+        return "{count} θύρες";
+    });
+    engine.registerEntry("el_GR", TXT_KEY_GRAPH_PURE_INPUTS, "Καθαρές Είσοδοι");
+    engine.registerEntry("el_GR", TXT_KEY_GRAPH_ACTIVE_INPUTS, "Ενεργές Είσοδοι");
+    engine.registerEntry("el_GR", TXT_KEY_GRAPH_UNCONNECTED_IO, "Μη Συνδεδεμένες Είσοδοι/Έξοδοι");
+    engine.registerEntry("el_GR", TXT_KEY_GRAPH_ACTIVE_IO, "Ενεργές Είσοδοι/Έξοδοι");
+    engine.registerEntry("el_GR", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "Ενεργές Έξοδοι");
+    engine.registerEntry("el_GR", TXT_KEY_GRAPH_PURE_OUTPUTS, "Καθαρές Έξοδοι");
 }
 
 std::string I18n::localize(eTextKeys key, const Hyprutils::I18n::translationVarMap& vars) {
