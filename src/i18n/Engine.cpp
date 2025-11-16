@@ -25,10 +25,32 @@ void I18n::initEngine() {
     });
     engine.registerEntry("en_US", TXT_KEY_GRAPH_PURE_INPUTS, "Pure Inputs");
     engine.registerEntry("en_US", TXT_KEY_GRAPH_ACTIVE_INPUTS, "Active Inputs");
-    engine.registerEntry("en_US", TXT_KEY_GRAPH_UNCONNECTED_IO, "Unconnected IO");
-    engine.registerEntry("en_US", TXT_KEY_GRAPH_ACTIVE_IO, "Active IO");
+    engine.registerEntry("en_US", TXT_KEY_GRAPH_UNCONNECTED_IO, "Unconnected I/O");
+    engine.registerEntry("en_US", TXT_KEY_GRAPH_ACTIVE_IO, "Active I/O");
     engine.registerEntry("en_US", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "Active Outputs");
     engine.registerEntry("en_US", TXT_KEY_GRAPH_PURE_OUTPUTS, "Pure Outputs");
+
+    // it_IT (Italian)
+    engine.registerEntry("it_IT", TXT_KEY_PW_CENTER_TITLE, "Impostazioni di Pipewire");
+
+    engine.registerEntry("it_IT", TXT_KEY_BUTTON_APPS, "App");
+    engine.registerEntry("it_IT", TXT_KEY_BUTTON_NODES, "Uscite");
+    engine.registerEntry("it_IT", TXT_KEY_BUTTON_INPUTS, "Ingressi");
+    engine.registerEntry("it_IT", TXT_KEY_BUTTON_CONFIGURATION, "Configurazione");
+    engine.registerEntry("it_IT", TXT_KEY_BUTTON_GRAPH, "Grafo");
+
+    engine.registerEntry("it_IT", TXT_KEY_GRAPH_N_PORTS, [](const Hyprutils::I18n::translationVarMap& vars) {
+        const auto count = std::stoi(vars.at("count"));
+        if (count == 1)
+            return "1 porta";
+        return "{count} porte";
+    });
+    engine.registerEntry("it_IT", TXT_KEY_GRAPH_PURE_INPUTS, "Ingressi puri");
+    engine.registerEntry("it_IT", TXT_KEY_GRAPH_ACTIVE_INPUTS, "Ingressi attivi");
+    engine.registerEntry("it_IT", TXT_KEY_GRAPH_UNCONNECTED_IO, "I/O non connesso");
+    engine.registerEntry("it_IT", TXT_KEY_GRAPH_ACTIVE_IO, "I/O Attivo");
+    engine.registerEntry("it_IT", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "Usicte attive");
+    engine.registerEntry("it_IT", TXT_KEY_GRAPH_PURE_OUTPUTS, "Uscite non connesse");
 
     // fr_FR (French)
     engine.registerEntry("fr_FR", TXT_KEY_PW_CENTER_TITLE, "Centre de contrôle Pipewire");
@@ -110,32 +132,6 @@ void I18n::initEngine() {
     engine.registerEntry("nl_NL", TXT_KEY_GRAPH_PURE_OUTPUTS, "Pure outputs");
     //
 
-    // sl_SI (Slovenian)
-    engine.registerEntry("sl_SI", TXT_KEY_PW_CENTER_TITLE, "Pipewire Nadzorna Plošča");
-    engine.registerEntry("sl_SI", TXT_KEY_BUTTON_APPS, "Aplikacije");
-    engine.registerEntry("sl_SI", TXT_KEY_BUTTON_NODES, "Vozlišča");
-    engine.registerEntry("sl_SI", TXT_KEY_BUTTON_INPUTS, "Vhodi");
-    engine.registerEntry("sl_SI", TXT_KEY_BUTTON_CONFIGURATION, "Konfiguracija");
-    engine.registerEntry("sl_SI", TXT_KEY_BUTTON_GRAPH, "Graf");
-    engine.registerEntry("sl_SI", TXT_KEY_GRAPH_N_PORTS, [](const Hyprutils::I18n::translationVarMap& vars) {
-        const auto count = std::stoi(vars.at("count"));
-        if (count == 1)
-            return "{count} priključek";
-        if (count == 2)
-            return "{count} priključka";    
-        if (count == 3 || count == 4)
-            return "{count} priključki";
-            
-        return "{count} priključkov";
-    });
-    engine.registerEntry("sl_SI", TXT_KEY_GRAPH_PURE_INPUTS, "Čisti vhodi");
-    engine.registerEntry("sl_SI", TXT_KEY_GRAPH_ACTIVE_INPUTS, "Aktivni vhodi");
-    engine.registerEntry("sl_SI", TXT_KEY_GRAPH_UNCONNECTED_IO, "Nepovezani vhodi/izhodi");
-    engine.registerEntry("sl_SI", TXT_KEY_GRAPH_ACTIVE_IO, "Aktivni vhodi/izhodi");
-    engine.registerEntry("sl_SI", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "Aktivni izhodi");
-    engine.registerEntry("sl_SI", TXT_KEY_GRAPH_PURE_OUTPUTS, "Čisti izhodi");  
-    //
-
     // pl_PL (Polish)
     engine.registerEntry("pl_PL", TXT_KEY_PW_CENTER_TITLE, "Centrum Sterowania Pipewire");
 
@@ -175,8 +171,8 @@ void I18n::initEngine() {
     engine.registerEntry("tr_TR", TXT_KEY_GRAPH_N_PORTS, "{count} port");
     engine.registerEntry("tr_TR", TXT_KEY_GRAPH_PURE_INPUTS, "Saf Girişler");
     engine.registerEntry("tr_TR", TXT_KEY_GRAPH_ACTIVE_INPUTS, "Aktif Girişler");
-    engine.registerEntry("tr_TR", TXT_KEY_GRAPH_UNCONNECTED_IO, "Bağlanmamış IO");
-    engine.registerEntry("tr_TR", TXT_KEY_GRAPH_ACTIVE_IO, "Aktif IO");
+    engine.registerEntry("tr_TR", TXT_KEY_GRAPH_UNCONNECTED_IO, "Bağlanmamış I/O");
+    engine.registerEntry("tr_TR", TXT_KEY_GRAPH_ACTIVE_IO, "Aktif I/O");
     engine.registerEntry("tr_TR", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "Aktif Çıkışlar");
     engine.registerEntry("tr_TR", TXT_KEY_GRAPH_PURE_OUTPUTS, "Saf Çıkışlar");
     //
