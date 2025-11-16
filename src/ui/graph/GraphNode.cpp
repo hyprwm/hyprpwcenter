@@ -4,6 +4,7 @@
 #include "../UI.hpp"
 #include "../../pw/IPwNode.hpp"
 #include "../../helpers/Log.hpp"
+#include "../../i18n/Engine.hpp"
 
 using namespace Hyprutils::Math;
 
@@ -62,7 +63,7 @@ void CGraphNode::update() {
         return;
 
     m_text->rebuild()->text(std::string{m_node->m_name})->commence();
-    m_subtext->rebuild()->text(std::format("<i>{} ports</i>", m_node->m_ports.size()))->commence();
+    m_subtext->rebuild()->text(std::format("<i>{}</i>", I18n::localize(I18n::TXT_KEY_GRAPH_N_PORTS, {{"count", std::to_string(m_node->m_ports.size())}})))->commence();
 
     m_anchors.clear();
     m_layoutInside->clearChildren();

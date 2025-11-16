@@ -3,6 +3,7 @@
 #include "DeviceConfig.hpp"
 #include "./graph/Graph.hpp"
 #include "../pw/PwState.hpp"
+#include "../i18n/Engine.hpp"
 
 #include <hyprutils/string/String.hpp>
 
@@ -14,7 +15,7 @@ constexpr float SMALL_PADDING = 6;
 
 CUI::CUI() {
     m_backend = Hyprtoolkit::IBackend::create();
-    m_window  = Hyprtoolkit::CWindowBuilder::begin()->appTitle("Pipewire Control Center")->appClass("hyprpwcenter")->commence();
+    m_window  = Hyprtoolkit::CWindowBuilder::begin()->appTitle(I18n::localize(I18n::TXT_KEY_PW_CENTER_TITLE))->appClass("hyprpwcenter")->commence();
 
     m_background = Hyprtoolkit::CRectangleBuilder::begin()->color([this] { return m_backend->getPalette()->m_colors.background; })->commence();
 
@@ -60,35 +61,35 @@ CUI::CUI() {
                                         ->commence();
 
     m_tabs.nodesButton = Hyprtoolkit::CButtonBuilder::begin()
-                             ->label("Nodes")
+                             ->label(I18n::localize(I18n::TXT_KEY_BUTTON_NODES))
                              ->noBorder(true)
                              ->onMainClick([this](SP<Hyprtoolkit::CButtonElement>) { changeTab(1); })
                              ->size({Hyprtoolkit::CDynamicSize::HT_SIZE_AUTO, Hyprtoolkit::CDynamicSize::HT_SIZE_PERCENT, {1.F, 1.F}})
                              ->commence();
 
     m_tabs.inputsButton = Hyprtoolkit::CButtonBuilder::begin()
-                              ->label("Inputs")
+                              ->label(I18n::localize(I18n::TXT_KEY_BUTTON_INPUTS))
                               ->noBorder(true)
                               ->onMainClick([this](SP<Hyprtoolkit::CButtonElement>) { changeTab(2); })
                               ->size({Hyprtoolkit::CDynamicSize::HT_SIZE_AUTO, Hyprtoolkit::CDynamicSize::HT_SIZE_PERCENT, {1.F, 1.F}})
                               ->commence();
 
     m_tabs.appsButton = Hyprtoolkit::CButtonBuilder::begin()
-                            ->label("Apps")
+                            ->label(I18n::localize(I18n::TXT_KEY_BUTTON_APPS))
                             ->noBorder(true)
                             ->onMainClick([this](SP<Hyprtoolkit::CButtonElement>) { changeTab(0); })
                             ->size({Hyprtoolkit::CDynamicSize::HT_SIZE_AUTO, Hyprtoolkit::CDynamicSize::HT_SIZE_PERCENT, {1.F, 1.F}})
                             ->commence();
 
     m_tabs.configButton = Hyprtoolkit::CButtonBuilder::begin()
-                              ->label("Configuration")
+                              ->label(I18n::localize(I18n::TXT_KEY_BUTTON_CONFIGURATION))
                               ->noBorder(true)
                               ->onMainClick([this](SP<Hyprtoolkit::CButtonElement>) { changeTab(3); })
                               ->size({Hyprtoolkit::CDynamicSize::HT_SIZE_AUTO, Hyprtoolkit::CDynamicSize::HT_SIZE_PERCENT, {1.F, 1.F}})
                               ->commence();
 
     m_tabs.graphButton = Hyprtoolkit::CButtonBuilder::begin()
-                             ->label("Graph")
+                             ->label(I18n::localize(I18n::TXT_KEY_BUTTON_GRAPH))
                              ->noBorder(true)
                              ->onMainClick([this](SP<Hyprtoolkit::CButtonElement>) { changeTab(4); })
                              ->size({Hyprtoolkit::CDynamicSize::HT_SIZE_AUTO, Hyprtoolkit::CDynamicSize::HT_SIZE_PERCENT, {1.F, 1.F}})

@@ -29,5 +29,5 @@ class CPipewireDevice {
     WP<CPipewireDevice>      m_self;
 
     // maps UI index to real PipeWire profile index
-    std::vector<uint32_t>    m_modePwIdx;
+    std::vector<uint32_t> m_modePwIdx;
 };

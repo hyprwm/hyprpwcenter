@@ -4,6 +4,7 @@
 #include "../../pw/IPwNode.hpp"
 #include "../../pw/PwLink.hpp"
 #include "../../pw/PwState.hpp"
+#include "../../i18n/Engine.hpp"
 
 #include <ranges>
 
@@ -130,27 +131,27 @@ CGraphView::CGraphView() {
     m_columnLabels = std::array<std::pair<SP<Hyprtoolkit::CNullElement>, SP<Hyprtoolkit::CTextElement>>, 6>{
         std::pair<SP<Hyprtoolkit::CNullElement>, SP<Hyprtoolkit::CTextElement>>{
             Hyprtoolkit::CNullBuilder::begin()->size({Hyprtoolkit::CDynamicSize::HT_SIZE_ABSOLUTE, Hyprtoolkit::CDynamicSize::HT_SIZE_AUTO, {BUBBLE_WIDTH, 1.F}})->commence(),
-            Hyprtoolkit::CTextBuilder::begin()->text("Pure Inputs")->clampSize({BUBBLE_WIDTH, -1.F})->commence(),
+            Hyprtoolkit::CTextBuilder::begin()->text(I18n::localize(I18n::TXT_KEY_GRAPH_PURE_INPUTS))->clampSize({BUBBLE_WIDTH, -1.F})->commence(),
         },
         {
             Hyprtoolkit::CNullBuilder::begin()->size({Hyprtoolkit::CDynamicSize::HT_SIZE_ABSOLUTE, Hyprtoolkit::CDynamicSize::HT_SIZE_AUTO, {BUBBLE_WIDTH, 1.F}})->commence(),
-            Hyprtoolkit::CTextBuilder::begin()->text("Active Inputs")->clampSize({BUBBLE_WIDTH, -1.F})->commence(),
+            Hyprtoolkit::CTextBuilder::begin()->text(I18n::localize(I18n::TXT_KEY_GRAPH_ACTIVE_INPUTS))->clampSize({BUBBLE_WIDTH, -1.F})->commence(),
         },
         {
             Hyprtoolkit::CNullBuilder::begin()->size({Hyprtoolkit::CDynamicSize::HT_SIZE_ABSOLUTE, Hyprtoolkit::CDynamicSize::HT_SIZE_AUTO, {BUBBLE_WIDTH, 1.F}})->commence(),
-            Hyprtoolkit::CTextBuilder::begin()->text("Unconnected IO")->clampSize({BUBBLE_WIDTH, -1.F})->commence(),
+            Hyprtoolkit::CTextBuilder::begin()->text(I18n::localize(I18n::TXT_KEY_GRAPH_UNCONNECTED_IO))->clampSize({BUBBLE_WIDTH, -1.F})->commence(),
         },
         {
             Hyprtoolkit::CNullBuilder::begin()->size({Hyprtoolkit::CDynamicSize::HT_SIZE_ABSOLUTE, Hyprtoolkit::CDynamicSize::HT_SIZE_AUTO, {BUBBLE_WIDTH, 1.F}})->commence(),
-            Hyprtoolkit::CTextBuilder::begin()->text("Active IO")->clampSize({BUBBLE_WIDTH, -1.F})->commence(),
+            Hyprtoolkit::CTextBuilder::begin()->text(I18n::localize(I18n::TXT_KEY_GRAPH_ACTIVE_IO))->clampSize({BUBBLE_WIDTH, -1.F})->commence(),
         },
         {
             Hyprtoolkit::CNullBuilder::begin()->size({Hyprtoolkit::CDynamicSize::HT_SIZE_ABSOLUTE, Hyprtoolkit::CDynamicSize::HT_SIZE_AUTO, {BUBBLE_WIDTH, 1.F}})->commence(),
-            Hyprtoolkit::CTextBuilder::begin()->text("Active Outputs")->clampSize({BUBBLE_WIDTH, -1.F})->commence(),
+            Hyprtoolkit::CTextBuilder::begin()->text(I18n::localize(I18n::TXT_KEY_GRAPH_ACTIVE_OUTPUTS))->clampSize({BUBBLE_WIDTH, -1.F})->commence(),
         },
         {
             Hyprtoolkit::CNullBuilder::begin()->size({Hyprtoolkit::CDynamicSize::HT_SIZE_ABSOLUTE, Hyprtoolkit::CDynamicSize::HT_SIZE_AUTO, {BUBBLE_WIDTH, 1.F}})->commence(),
-            Hyprtoolkit::CTextBuilder::begin()->text("Pure Outputs")->clampSize({BUBBLE_WIDTH, -1.F})->commence(),
+            Hyprtoolkit::CTextBuilder::begin()->text(I18n::localize(I18n::TXT_KEY_GRAPH_PURE_OUTPUTS))->clampSize({BUBBLE_WIDTH, -1.F})->commence(),
         },
     };
 

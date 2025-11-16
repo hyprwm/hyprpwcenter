@@ -154,16 +154,12 @@ void CPipewireDevice::setMode(size_t x) {
         return;
 
     // Translate from UI index to real PipeWire profile index
-    uint32_t pwIdx = m_modePwIdx[x];
+    uint32_t        pwIdx = m_modePwIdx[x];
 
     uint8_t         buf[256];
     spa_pod_builder b    = SPA_POD_BUILDER_INIT(buf, sizeof(buf));
-    const spa_pod*  prof = rc<spa_pod*>(
-        spa_pod_builder_add_object(
-            &b,
-            SPA_TYPE_OBJECT_ParamProfile,   SPA_PARAM_Profile,
-            SPA_PARAM_PROFILE_index,        SPA_POD_Int((int)pwIdx),
-            SPA_PARAM_PROFILE_save,         SPA_POD_Bool(true)));
+    const spa_pod*  prof = rc<spa_pod*>(spa_pod_builder_add_object(&b, SPA_TYPE_OBJECT_ParamProfile, SPA_PARAM_Profile, SPA_PARAM_PROFILE_index, SPA_POD_Int((int)pwIdx),
+                                                                   SPA_PARAM_PROFILE_save, SPA_POD_Bool(true)));
 
     pw_device_set_param(m_proxy, SPA_PARAM_Profile, 0, prof);
 }

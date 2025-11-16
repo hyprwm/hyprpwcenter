@@ -1,8 +1,11 @@
 #include "pw/PwState.hpp"
 #include "ui/UI.hpp"
 #include "helpers/Log.hpp"
+#include "i18n/Engine.hpp"
 
 int main(int argc, char** argv, char** envp) {
+    I18n::initEngine();
+
     g_pipewire = makeUnique<CPipewireState>(argc, argv);
     g_ui       = makeUnique<CUI>();
 
