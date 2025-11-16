@@ -31,6 +31,23 @@ void I18n::initEngine() {
     engine.registerEntry("en_US", TXT_KEY_GRAPH_PURE_OUTPUTS, "Pure Outputs");
     //
 
+    // id_ID (Indonesian)
+    engine.registerEntry("id_ID", TXT_KEY_PW_CENTER_TITLE, "Pusat Kontrol Pipewire");
+
+    engine.registerEntry("id_ID", TXT_KEY_BUTTON_APPS, "Aplikasi");
+    engine.registerEntry("id_ID", TXT_KEY_BUTTON_NODES, "Node");
+    engine.registerEntry("id_ID", TXT_KEY_BUTTON_INPUTS, "Input");
+    engine.registerEntry("id_ID", TXT_KEY_BUTTON_CONFIGURATION, "Konfigurasi");
+    engine.registerEntry("id_ID", TXT_KEY_BUTTON_GRAPH, "Graf");
+
+    engine.registerEntry("id_ID", TXT_KEY_GRAPH_N_PORTS, "{count} port");
+    engine.registerEntry("id_ID", TXT_KEY_GRAPH_PURE_INPUTS, "Input Murni");
+    engine.registerEntry("id_ID", TXT_KEY_GRAPH_ACTIVE_INPUTS, "Input Aktif");
+    engine.registerEntry("id_ID", TXT_KEY_GRAPH_UNCONNECTED_IO, "I/O Tidak Terhubung");
+    engine.registerEntry("id_ID", TXT_KEY_GRAPH_ACTIVE_IO, "I/O Aktif");
+    engine.registerEntry("id_ID", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "Output Aktif");
+    engine.registerEntry("id_ID", TXT_KEY_GRAPH_PURE_OUTPUTS, "Output Murni");
+
     // ja_JP (Japanese)
     engine.registerEntry("ja_JP", TXT_KEY_PW_CENTER_TITLE, "Pipewireコントロールセンター");
 
