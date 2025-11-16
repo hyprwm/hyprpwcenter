@@ -8,6 +8,28 @@ void I18n::initEngine() {
     engine.setFallbackLocale("en_US");
     engineLocale = engine.getSystemLocale().locale();
 
+    // da_DK (Danish)
+    engine.registerEntry("da_DK", TXT_KEY_PW_CENTER_TITLE, "Pipewire Kontrol Center");
+
+    engine.registerEntry("da_DK", TXT_KEY_BUTTON_APPS, "Applikationer");
+    engine.registerEntry("da_DK", TXT_KEY_BUTTON_NODES, "Knuder");
+    engine.registerEntry("da_DK", TXT_KEY_BUTTON_INPUTS, "Indgange");
+    engine.registerEntry("da_DK", TXT_KEY_BUTTON_CONFIGURATION, "Konfiguration");
+    engine.registerEntry("da_DK", TXT_KEY_BUTTON_GRAPH, "Graf");
+
+    engine.registerEntry("da_DK", TXT_KEY_GRAPH_N_PORTS, [](const Hyprutils::I18n::translationVarMap& vars) {
+        const auto count = std::stoi(vars.at("count"));
+        if (count == 1)
+            return "1 port";
+        return "{count} porte";
+    });
+    engine.registerEntry("da_DK", TXT_KEY_GRAPH_PURE_INPUTS, "Rene Indgange");
+    engine.registerEntry("da_DK", TXT_KEY_GRAPH_ACTIVE_INPUTS, "Aktive Indgange");
+    engine.registerEntry("da_DK", TXT_KEY_GRAPH_UNCONNECTED_IO, "Uforbundne I/O");
+    engine.registerEntry("da_DK", TXT_KEY_GRAPH_ACTIVE_IO, "Aktive I/O");
+    engine.registerEntry("da_DK", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "Aktive Udgange");
+    engine.registerEntry("da_DK", TXT_KEY_GRAPH_PURE_OUTPUTS, "Rene Udgange");
+
     // en_US (English)
     engine.registerEntry("en_US", TXT_KEY_PW_CENTER_TITLE, "Pipewire Control Center");
 
