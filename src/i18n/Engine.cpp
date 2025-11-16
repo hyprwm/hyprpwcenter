@@ -92,6 +92,24 @@ void I18n::initEngine() {
     engine.registerEntry("pl_PL", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "Aktywne wyjścia");
     engine.registerEntry("pl_PL", TXT_KEY_GRAPH_PURE_OUTPUTS, "Czyste wyjścia");
     //
+
+    // tr_TR (Turkish)
+    engine.registerEntry("tr_TR", TXT_KEY_PW_CENTER_TITLE, "Pipewire Kontrol Merkezi");
+
+    engine.registerEntry("tr_TR", TXT_KEY_BUTTON_APPS, "Uygulamalar");
+    engine.registerEntry("tr_TR", TXT_KEY_BUTTON_NODES, "Düğümler");
+    engine.registerEntry("tr_TR", TXT_KEY_BUTTON_INPUTS, "Girişler");
+    engine.registerEntry("tr_TR", TXT_KEY_BUTTON_CONFIGURATION, "Konfigürasyon");
+    engine.registerEntry("tr_TR", TXT_KEY_BUTTON_GRAPH, "Grafik");
+
+    engine.registerEntry("tr_TR", TXT_KEY_GRAPH_N_PORTS, "{count} port");
+    engine.registerEntry("tr_TR", TXT_KEY_GRAPH_PURE_INPUTS, "Saf Girişler");
+    engine.registerEntry("tr_TR", TXT_KEY_GRAPH_ACTIVE_INPUTS, "Aktif Girişler");
+    engine.registerEntry("tr_TR", TXT_KEY_GRAPH_UNCONNECTED_IO, "Bağlanmamış IO");
+    engine.registerEntry("tr_TR", TXT_KEY_GRAPH_ACTIVE_IO, "Aktif IO");
+    engine.registerEntry("tr_TR", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "Aktif Çıkışlar");
+    engine.registerEntry("tr_TR", TXT_KEY_GRAPH_PURE_OUTPUTS, "Saf Çıkışlar");
+    //
 }
 
 std::string I18n::localize(eTextKeys key, const Hyprutils::I18n::translationVarMap& vars) {
