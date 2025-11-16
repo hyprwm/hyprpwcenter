@@ -29,7 +29,28 @@ void I18n::initEngine() {
     engine.registerEntry("en_US", TXT_KEY_GRAPH_ACTIVE_IO, "Active IO");
     engine.registerEntry("en_US", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "Active Outputs");
     engine.registerEntry("en_US", TXT_KEY_GRAPH_PURE_OUTPUTS, "Pure Outputs");
-    //
+
+    // fr_FR (French)
+    engine.registerEntry("fr_FR", TXT_KEY_PW_CENTER_TITLE, "Centre de contrôle Pipewire");
+
+    engine.registerEntry("fr_FR", TXT_KEY_BUTTON_APPS, "Applications");
+    engine.registerEntry("fr_FR", TXT_KEY_BUTTON_NODES, "Noeuds");
+    engine.registerEntry("fr_FR", TXT_KEY_BUTTON_INPUTS, "Entrées");
+    engine.registerEntry("fr_FR", TXT_KEY_BUTTON_CONFIGURATION, "Configuration");
+    engine.registerEntry("fr_FR", TXT_KEY_BUTTON_GRAPH, "Graphe");
+
+    engine.registerEntry("fr_FR", TXT_KEY_GRAPH_N_PORTS, [](const Hyprutils::I18n::translationVarMap& vars) {
+        const auto count = std::stoi(vars.at("count"));
+        if (count == 1)
+            return "1 port";
+        return "{count} ports";
+    });
+    engine.registerEntry("fr_FR", TXT_KEY_GRAPH_PURE_INPUTS, "Entrées simples");
+    engine.registerEntry("fr_FR", TXT_KEY_GRAPH_ACTIVE_INPUTS, "Entrées actives");
+    engine.registerEntry("fr_FR", TXT_KEY_GRAPH_UNCONNECTED_IO, "E/S non connectées");
+    engine.registerEntry("fr_FR", TXT_KEY_GRAPH_ACTIVE_IO, "E/S actives");
+    engine.registerEntry("fr_FR", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "Sorties actives");
+    engine.registerEntry("fr_FR", TXT_KEY_GRAPH_PURE_OUTPUTS, "Sorties simples");
 
     // id_ID (Indonesian)
     engine.registerEntry("id_ID", TXT_KEY_PW_CENTER_TITLE, "Pusat Kontrol Pipewire");
