@@ -171,6 +171,29 @@ void I18n::initEngine() {
     engine.registerEntry("ja_JP", TXT_KEY_GRAPH_PURE_OUTPUTS, "出力のみ");
     //
 
+    // nb_NO (Norwegian Bokmål)
+    engine.registerEntry("nb_NO", TXT_KEY_PW_CENTER_TITLE, "Pipewire Kontrollsenter");
+
+    engine.registerEntry("nb_NO", TXT_KEY_BUTTON_APPS, "Apper");
+    engine.registerEntry("nb_NO", TXT_KEY_BUTTON_NODES, "Noder");
+    engine.registerEntry("nb_NO", TXT_KEY_BUTTON_INPUTS, "Inndata");
+    engine.registerEntry("nb_NO", TXT_KEY_BUTTON_CONFIGURATION, "Konfigurasjon");
+    engine.registerEntry("nb_NO", TXT_KEY_BUTTON_GRAPH, "Graf");
+
+    engine.registerEntry("nb_NO", TXT_KEY_GRAPH_N_PORTS, [](const Hyprutils::I18n::translationVarMap& vars) {
+        const auto count = std::stoi(vars.at("count"));
+        if (count == 1)
+            return "1 port";
+        return "{count} porter";
+    });
+    engine.registerEntry("nb_NO", TXT_KEY_GRAPH_PURE_INPUTS, "Rene Inndataer");
+    engine.registerEntry("nb_NO", TXT_KEY_GRAPH_ACTIVE_INPUTS, "Aktive Inndataer");
+    engine.registerEntry("nb_NO", TXT_KEY_GRAPH_UNCONNECTED_IO, "Ukoblet I/O");
+    engine.registerEntry("nb_NO", TXT_KEY_GRAPH_ACTIVE_IO, "Aktive I/O");
+    engine.registerEntry("nb_NO", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "Aktive Utdataer");
+    engine.registerEntry("nb_NO", TXT_KEY_GRAPH_PURE_OUTPUTS, "Rene Utdataer");
+    //
+
     // nl_NL (Dutch)
     engine.registerEntry("nl_NL", TXT_KEY_PW_CENTER_TITLE, "Pipewire Controle Centrum");
 
