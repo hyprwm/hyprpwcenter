@@ -171,7 +171,7 @@ void I18n::initEngine() {
     engine.registerEntry("ja_JP", TXT_KEY_GRAPH_PURE_OUTPUTS, "出力のみ");
     //
 
-     // ml_IN (Malayalam)
+    // ml_IN (Malayalam)
     engine.registerEntry("ml_IN", TXT_KEY_PW_CENTER_TITLE, "PipeWire നിയന്ത്രണ കേന്ദ്രം");
 
     engine.registerEntry("ml_IN", TXT_KEY_BUTTON_APPS, "ആപ്പുകൾ");
@@ -243,6 +243,35 @@ void I18n::initEngine() {
     engine.registerEntry("pl_PL", TXT_KEY_GRAPH_ACTIVE_IO, "Aktywne wejścia/wyjścia");
     engine.registerEntry("pl_PL", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "Aktywne wyjścia");
     engine.registerEntry("pl_PL", TXT_KEY_GRAPH_PURE_OUTPUTS, "Czyste wyjścia");
+    //
+
+    // ru_RU (Russian)
+    engine.registerEntry("ru_RU", TXT_KEY_PW_CENTER_TITLE, "Центр Управления Pipewire");
+
+    engine.registerEntry("ru_RU", TXT_KEY_BUTTON_APPS, "Приложения");
+    engine.registerEntry("ru_RU", TXT_KEY_BUTTON_NODES, "Узлы");
+    engine.registerEntry("ru_RU", TXT_KEY_BUTTON_INPUTS, "Входы");
+    engine.registerEntry("ru_RU", TXT_KEY_BUTTON_CONFIGURATION, "Конфигурация");
+    engine.registerEntry("ru_RU", TXT_KEY_BUTTON_GRAPH, "График");
+
+    engine.registerEntry("ru_RU", TXT_KEY_GRAPH_N_PORTS, [](const Hyprutils::I18n::translationVarMap& vars) {
+        const auto count   = std::stoi(vars.at("count"));
+        const auto lastOne = count % 10;
+        const auto lastTwo = count % 100;
+        if (lastTwo >= 11 && lastTwo <= 14)
+            return "{count} портов";
+        if (lastOne == 1)
+            return "1 порт";
+        if (lastOne <= 4)
+            return "{count} порта";
+        return "{count} портов";
+    });
+    engine.registerEntry("ru_RU", TXT_KEY_GRAPH_PURE_INPUTS, "Чистые Входы");
+    engine.registerEntry("ru_RU", TXT_KEY_GRAPH_ACTIVE_INPUTS, "Активные Входы");
+    engine.registerEntry("ru_RU", TXT_KEY_GRAPH_UNCONNECTED_IO, "Неподключенные Входы/Выходы");
+    engine.registerEntry("ru_RU", TXT_KEY_GRAPH_ACTIVE_IO, "Активные Входы/Выходы");
+    engine.registerEntry("ru_RU", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "Активные Выходы");
+    engine.registerEntry("ru_RU", TXT_KEY_GRAPH_PURE_OUTPUTS, "Чистые Выходы");
     //
 
     // sl_SI (Slovenian)
