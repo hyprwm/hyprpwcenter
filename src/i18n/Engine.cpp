@@ -242,8 +242,8 @@ void I18n::initEngine() {
     });
     engine.registerEntry("ru_RU", TXT_KEY_GRAPH_PURE_INPUTS, "Чистые входы");
     engine.registerEntry("ru_RU", TXT_KEY_GRAPH_ACTIVE_INPUTS, "Активные входы");
-    engine.registerEntry("ru_RU", TXT_KEY_GRAPH_UNCONNECTED_IO, "Неподключённые I/O");
-    engine.registerEntry("ru_RU", TXT_KEY_GRAPH_ACTIVE_IO, "Активные I/O");
+    engine.registerEntry("ru_RU", TXT_KEY_GRAPH_UNCONNECTED_IO, "Неподключённые\nвходы/выходы");
+    engine.registerEntry("ru_RU", TXT_KEY_GRAPH_ACTIVE_IO, "Активные\nвходы/выходы");
     engine.registerEntry("ru_RU", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "Активные выходы");
     engine.registerEntry("ru_RU", TXT_KEY_GRAPH_PURE_OUTPUTS, "Чистые выходы");
 
