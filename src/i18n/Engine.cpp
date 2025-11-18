@@ -171,6 +171,30 @@ void I18n::initEngine() {
     engine.registerEntry("ja_JP", TXT_KEY_GRAPH_PURE_OUTPUTS, "出力のみ");
     //
 
+     // ml_IN (Malayalam)
+    engine.registerEntry("ml_IN", TXT_KEY_PW_CENTER_TITLE, "PipeWire നിയന്ത്രണ കേന്ദ്രം");
+
+    engine.registerEntry("ml_IN", TXT_KEY_BUTTON_APPS, "ആപ്പുകൾ");
+    engine.registerEntry("ml_IN", TXT_KEY_BUTTON_NODES, "നോഡുകൾ");
+    engine.registerEntry("ml_IN", TXT_KEY_BUTTON_INPUTS, "ഇൻപുട്ടുകൾ");
+    engine.registerEntry("ml_IN", TXT_KEY_BUTTON_CONFIGURATION, "കോൺഫിഗറേഷൻ");
+    engine.registerEntry("ml_IN", TXT_KEY_BUTTON_GRAPH, "ഗ്രാഫ്");
+
+    engine.registerEntry("ml_IN", TXT_KEY_GRAPH_N_PORTS, [](const Hyprutils::I18n::translationVarMap& vars) {
+        const auto count = std::stoi(vars.at("count"));
+        if (count == 1)
+            return "1 പോർട്ട്";
+        return "{count} പോർട്ടുകൾ";
+    });
+
+    engine.registerEntry("ml_IN", TXT_KEY_GRAPH_PURE_INPUTS, "ശുദ്ധ ഇൻപുട്ടുകൾ");
+    engine.registerEntry("ml_IN", TXT_KEY_GRAPH_ACTIVE_INPUTS, "സജീവ ഇൻപുട്ടുകൾ");
+    engine.registerEntry("ml_IN", TXT_KEY_GRAPH_UNCONNECTED_IO, "ബന്ധിപ്പിക്കാത്ത I/O");
+    engine.registerEntry("ml_IN", TXT_KEY_GRAPH_ACTIVE_IO, "സജീവ I/O");
+    engine.registerEntry("ml_IN", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "സജീവ ഔട്ട്പുട്ടുകൾ");
+    engine.registerEntry("ml_IN", TXT_KEY_GRAPH_PURE_OUTPUTS, "ശുദ്ധ ഔട്ട്പുട്ടുകൾ");
+    //
+
     // nl_NL (Dutch)
     engine.registerEntry("nl_NL", TXT_KEY_PW_CENTER_TITLE, "Pipewire Controle Centrum");
 
