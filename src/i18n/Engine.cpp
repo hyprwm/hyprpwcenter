@@ -271,6 +271,54 @@ void I18n::initEngine() {
     engine.registerEntry("sl_SI", TXT_KEY_GRAPH_PURE_OUTPUTS, "Čisti izhodi");
     //
 
+    // sr_RS (Serbian)
+    engine.registerEntry("sr_RS", TXT_KEY_PW_CENTER_TITLE, "Pipewire Контролни Центар");
+
+    engine.registerEntry("sr_RS", TXT_KEY_BUTTON_APPS, "Апликације");
+    engine.registerEntry("sr_RS", TXT_KEY_BUTTON_NODES, "Чворови");
+    engine.registerEntry("sr_RS", TXT_KEY_BUTTON_INPUTS, "Улази");
+    engine.registerEntry("sr_RS", TXT_KEY_BUTTON_CONFIGURATION, "Конфигурација");
+    engine.registerEntry("sr_RS", TXT_KEY_BUTTON_GRAPH, "График");
+
+    engine.registerEntry("sr_RS", TXT_KEY_GRAPH_N_PORTS, [](const Hyprutils::I18n::translationVarMap& vars) {
+        const auto count = std::stoi(vars.at("count"));
+        if (count == 1)
+            return "1 порт";
+        if (count >= 2 && count <= 4)
+            return "{count} порта";
+        return "{count} портова";
+    });
+    engine.registerEntry("sr_RS", TXT_KEY_GRAPH_PURE_INPUTS, "Чисти Улази");
+    engine.registerEntry("sr_RS", TXT_KEY_GRAPH_ACTIVE_INPUTS, "Активни Улази");
+    engine.registerEntry("sr_RS", TXT_KEY_GRAPH_UNCONNECTED_IO, "Неповезани I/O");
+    engine.registerEntry("sr_RS", TXT_KEY_GRAPH_ACTIVE_IO, "Активни I/O");
+    engine.registerEntry("sr_RS", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "Активни Излази");
+    engine.registerEntry("sr_RS", TXT_KEY_GRAPH_PURE_OUTPUTS, "Чисти Излази");
+
+    // sr_RS@latin (Serbian Latin)
+    engine.registerEntry("sr_RS@latin@latin", TXT_KEY_PW_CENTER_TITLE, "Pipewire Kontrolni Centar");
+
+    engine.registerEntry("sr_RS@latin", TXT_KEY_BUTTON_APPS, "Aplikacije");
+    engine.registerEntry("sr_RS@latin", TXT_KEY_BUTTON_NODES, "Čvorovi");
+    engine.registerEntry("sr_RS@latin", TXT_KEY_BUTTON_INPUTS, "Ulazi");
+    engine.registerEntry("sr_RS@latin", TXT_KEY_BUTTON_CONFIGURATION, "Konfiguracija");
+    engine.registerEntry("sr_RS@latin", TXT_KEY_BUTTON_GRAPH, "Grafik");
+
+    engine.registerEntry("sr_RS@latin", TXT_KEY_GRAPH_N_PORTS, [](const Hyprutils::I18n::translationVarMap& vars) {
+        const auto count = std::stoi(vars.at("count"));
+        if (count == 1)
+            return "1 port";
+        if (count >= 2 && count <= 4)
+            return "{count} porta";
+        return "{count} portova";
+    });
+    engine.registerEntry("sr_RS@latin", TXT_KEY_GRAPH_PURE_INPUTS, "Čisti Ulazi");
+    engine.registerEntry("sr_RS@latin", TXT_KEY_GRAPH_ACTIVE_INPUTS, "Aktivni Ulazi");
+    engine.registerEntry("sr_RS@latin", TXT_KEY_GRAPH_UNCONNECTED_IO, "Nepovezani I/O");
+    engine.registerEntry("sr_RS@latin", TXT_KEY_GRAPH_ACTIVE_IO, "Aktivni I/O");
+    engine.registerEntry("sr_RS@latin", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "Aktivni Izlazi");
+    engine.registerEntry("sr_RS@latin", TXT_KEY_GRAPH_PURE_OUTPUTS, "Čisti Izlazi");
+
     // tr_TR (Turkish)
     engine.registerEntry("tr_TR", TXT_KEY_PW_CENTER_TITLE, "Pipewire Kontrol Merkezi");
 
