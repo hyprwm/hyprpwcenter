@@ -171,6 +171,30 @@ void I18n::initEngine() {
     engine.registerEntry("ja_JP", TXT_KEY_GRAPH_PURE_OUTPUTS, "出力のみ");
     //
 
+     // ml_IN (Malayalam)
+    engine.registerEntry("ml_IN", TXT_KEY_PW_CENTER_TITLE, "PipeWire നിയന്ത്രണ കേന്ദ്രം");
+
+    engine.registerEntry("ml_IN", TXT_KEY_BUTTON_APPS, "ആപ്പുകൾ");
+    engine.registerEntry("ml_IN", TXT_KEY_BUTTON_NODES, "നോഡുകൾ");
+    engine.registerEntry("ml_IN", TXT_KEY_BUTTON_INPUTS, "ഇൻപുട്ടുകൾ");
+    engine.registerEntry("ml_IN", TXT_KEY_BUTTON_CONFIGURATION, "കോൺഫിഗറേഷൻ");
+    engine.registerEntry("ml_IN", TXT_KEY_BUTTON_GRAPH, "ഗ്രാഫ്");
+
+    engine.registerEntry("ml_IN", TXT_KEY_GRAPH_N_PORTS, [](const Hyprutils::I18n::translationVarMap& vars) {
+        const auto count = std::stoi(vars.at("count"));
+        if (count == 1)
+            return "1 പോർട്ട്";
+        return "{count} പോർട്ടുകൾ";
+    });
+
+    engine.registerEntry("ml_IN", TXT_KEY_GRAPH_PURE_INPUTS, "ശുദ്ധ ഇൻപുട്ടുകൾ");
+    engine.registerEntry("ml_IN", TXT_KEY_GRAPH_ACTIVE_INPUTS, "സജീവ ഇൻപുട്ടുകൾ");
+    engine.registerEntry("ml_IN", TXT_KEY_GRAPH_UNCONNECTED_IO, "ബന്ധിപ്പിക്കാത്ത I/O");
+    engine.registerEntry("ml_IN", TXT_KEY_GRAPH_ACTIVE_IO, "സജീവ I/O");
+    engine.registerEntry("ml_IN", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "സജീവ ഔട്ട്പുട്ടുകൾ");
+    engine.registerEntry("ml_IN", TXT_KEY_GRAPH_PURE_OUTPUTS, "ശുദ്ധ ഔട്ട്പുട്ടുകൾ");
+    //
+
     // nb_NO (Norwegian Bokmål)
     engine.registerEntry("nb_NO", TXT_KEY_PW_CENTER_TITLE, "Pipewire Kontrollsenter");
 
@@ -269,6 +293,54 @@ void I18n::initEngine() {
     engine.registerEntry("sl_SI", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "Aktivni izhodi");
     engine.registerEntry("sl_SI", TXT_KEY_GRAPH_PURE_OUTPUTS, "Čisti izhodi");
     //
+
+    // sr_RS (Serbian)
+    engine.registerEntry("sr_RS", TXT_KEY_PW_CENTER_TITLE, "Pipewire Контролни Центар");
+
+    engine.registerEntry("sr_RS", TXT_KEY_BUTTON_APPS, "Апликације");
+    engine.registerEntry("sr_RS", TXT_KEY_BUTTON_NODES, "Чворови");
+    engine.registerEntry("sr_RS", TXT_KEY_BUTTON_INPUTS, "Улази");
+    engine.registerEntry("sr_RS", TXT_KEY_BUTTON_CONFIGURATION, "Конфигурација");
+    engine.registerEntry("sr_RS", TXT_KEY_BUTTON_GRAPH, "График");
+
+    engine.registerEntry("sr_RS", TXT_KEY_GRAPH_N_PORTS, [](const Hyprutils::I18n::translationVarMap& vars) {
+        const auto count = std::stoi(vars.at("count"));
+        if (count == 1)
+            return "1 порт";
+        if (count >= 2 && count <= 4)
+            return "{count} порта";
+        return "{count} портова";
+    });
+    engine.registerEntry("sr_RS", TXT_KEY_GRAPH_PURE_INPUTS, "Чисти Улази");
+    engine.registerEntry("sr_RS", TXT_KEY_GRAPH_ACTIVE_INPUTS, "Активни Улази");
+    engine.registerEntry("sr_RS", TXT_KEY_GRAPH_UNCONNECTED_IO, "Неповезани I/O");
+    engine.registerEntry("sr_RS", TXT_KEY_GRAPH_ACTIVE_IO, "Активни I/O");
+    engine.registerEntry("sr_RS", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "Активни Излази");
+    engine.registerEntry("sr_RS", TXT_KEY_GRAPH_PURE_OUTPUTS, "Чисти Излази");
+
+    // sr_RS@latin (Serbian Latin)
+    engine.registerEntry("sr_RS@latin@latin", TXT_KEY_PW_CENTER_TITLE, "Pipewire Kontrolni Centar");
+
+    engine.registerEntry("sr_RS@latin", TXT_KEY_BUTTON_APPS, "Aplikacije");
+    engine.registerEntry("sr_RS@latin", TXT_KEY_BUTTON_NODES, "Čvorovi");
+    engine.registerEntry("sr_RS@latin", TXT_KEY_BUTTON_INPUTS, "Ulazi");
+    engine.registerEntry("sr_RS@latin", TXT_KEY_BUTTON_CONFIGURATION, "Konfiguracija");
+    engine.registerEntry("sr_RS@latin", TXT_KEY_BUTTON_GRAPH, "Grafik");
+
+    engine.registerEntry("sr_RS@latin", TXT_KEY_GRAPH_N_PORTS, [](const Hyprutils::I18n::translationVarMap& vars) {
+        const auto count = std::stoi(vars.at("count"));
+        if (count == 1)
+            return "1 port";
+        if (count >= 2 && count <= 4)
+            return "{count} porta";
+        return "{count} portova";
+    });
+    engine.registerEntry("sr_RS@latin", TXT_KEY_GRAPH_PURE_INPUTS, "Čisti Ulazi");
+    engine.registerEntry("sr_RS@latin", TXT_KEY_GRAPH_ACTIVE_INPUTS, "Aktivni Ulazi");
+    engine.registerEntry("sr_RS@latin", TXT_KEY_GRAPH_UNCONNECTED_IO, "Nepovezani I/O");
+    engine.registerEntry("sr_RS@latin", TXT_KEY_GRAPH_ACTIVE_IO, "Aktivni I/O");
+    engine.registerEntry("sr_RS@latin", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "Aktivni Izlazi");
+    engine.registerEntry("sr_RS@latin", TXT_KEY_GRAPH_PURE_OUTPUTS, "Čisti Izlazi");
 
     // tr_TR (Turkish)
     engine.registerEntry("tr_TR", TXT_KEY_PW_CENTER_TITLE, "Pipewire Kontrol Merkezi");
