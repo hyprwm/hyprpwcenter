@@ -245,6 +245,32 @@ void I18n::initEngine() {
     engine.registerEntry("pl_PL", TXT_KEY_GRAPH_PURE_OUTPUTS, "Czyste wyjścia");
     //
 
+    // ru_RU (Russian)
+    engine.registerEntry("ru_RU", TXT_KEY_PW_CENTER_TITLE, "Центр управления Pipewire");
+
+    engine.registerEntry("ru_RU", TXT_KEY_BUTTON_APPS, "Приложения");
+    engine.registerEntry("ru_RU", TXT_KEY_BUTTON_NODES, "Узлы");
+    engine.registerEntry("ru_RU", TXT_KEY_BUTTON_INPUTS, "Входы");
+    engine.registerEntry("ru_RU", TXT_KEY_BUTTON_CONFIGURATION, "Конфигурация");
+    engine.registerEntry("ru_RU", TXT_KEY_BUTTON_GRAPH, "Граф");
+
+    engine.registerEntry("ru_RU", TXT_KEY_GRAPH_N_PORTS, [](const Hyprutils::I18n::translationVarMap& vars) {
+        const int count   = std::stoi(vars.at("count"));
+        const int last    = count % 10;
+        const int lastTwo = count % 100;
+        if (last == 1 && lastTwo != 11)
+            return "{count} порт";
+        if (last >= 2 && last <= 4 && (lastTwo < 12 || lastTwo > 14))
+            return "{count} порта";
+        return "{count} портов";
+    });
+    engine.registerEntry("ru_RU", TXT_KEY_GRAPH_PURE_INPUTS, "Чистые входы");
+    engine.registerEntry("ru_RU", TXT_KEY_GRAPH_ACTIVE_INPUTS, "Активные входы");
+    engine.registerEntry("ru_RU", TXT_KEY_GRAPH_UNCONNECTED_IO, "Неподключённые\nвходы/выходы");
+    engine.registerEntry("ru_RU", TXT_KEY_GRAPH_ACTIVE_IO, "Активные\nвходы/выходы");
+    engine.registerEntry("ru_RU", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "Активные выходы");
+    engine.registerEntry("ru_RU", TXT_KEY_GRAPH_PURE_OUTPUTS, "Чистые выходы");
+
     // sl_SI (Slovenian)
     engine.registerEntry("sl_SI", TXT_KEY_PW_CENTER_TITLE, "Pipewire Nadzorna Plošča");
     engine.registerEntry("sl_SI", TXT_KEY_BUTTON_APPS, "Aplikacije");
