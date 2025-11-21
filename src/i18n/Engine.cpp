@@ -171,7 +171,7 @@ void I18n::initEngine() {
     engine.registerEntry("ja_JP", TXT_KEY_GRAPH_PURE_OUTPUTS, "出力のみ");
     //
 
-     // ml_IN (Malayalam)
+    // ml_IN (Malayalam)
     engine.registerEntry("ml_IN", TXT_KEY_PW_CENTER_TITLE, "PipeWire നിയന്ത്രണ കേന്ദ്രം");
 
     engine.registerEntry("ml_IN", TXT_KEY_BUTTON_APPS, "ആപ്പുകൾ");
@@ -384,6 +384,28 @@ void I18n::initEngine() {
     engine.registerEntry("el_GR", TXT_KEY_GRAPH_ACTIVE_IO, "Ενεργές Είσοδοι/Έξοδοι");
     engine.registerEntry("el_GR", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "Ενεργές Έξοδοι");
     engine.registerEntry("el_GR", TXT_KEY_GRAPH_PURE_OUTPUTS, "Καθαρές Έξοδοι");
+
+    // es_ES (Spanish)
+    engine.registerEntry("es_ES", TXT_KEY_PW_CENTER_TITLE, "Centro de Control de Pipewire");
+
+    engine.registerEntry("es_ES", TXT_KEY_BUTTON_APPS, "Aplicaciones");
+    engine.registerEntry("es_ES", TXT_KEY_BUTTON_NODES, "Nodos");
+    engine.registerEntry("es_ES", TXT_KEY_BUTTON_INPUTS, "Entradas");
+    engine.registerEntry("es_ES", TXT_KEY_BUTTON_CONFIGURATION, "Configuración");
+    engine.registerEntry("es_ES", TXT_KEY_BUTTON_GRAPH, "Grafo");
+
+    engine.registerEntry("es_ES", TXT_KEY_GRAPH_N_PORTS, [](const Hyprutils::I18n::translationVarMap& vars) {
+        const auto count = std::stoi(vars.at("count"));
+        if (count == 1)
+            return "1 puerto";
+        return "{count} puertos";
+    });
+    engine.registerEntry("es_ES", TXT_KEY_GRAPH_PURE_INPUTS, "Entradas Puras");
+    engine.registerEntry("es_ES", TXT_KEY_GRAPH_ACTIVE_INPUTS, "Entradas Activas");
+    engine.registerEntry("es_ES", TXT_KEY_GRAPH_UNCONNECTED_IO, "E/S sin Conexión");
+    engine.registerEntry("es_ES", TXT_KEY_GRAPH_ACTIVE_IO, "E/S Activa");
+    engine.registerEntry("es_ES", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "Salidas Activas");
+    engine.registerEntry("es_ES", TXT_KEY_GRAPH_PURE_OUTPUTS, "Salidas Puras");
 }
 
 std::string I18n::localize(eTextKeys key, const Hyprutils::I18n::translationVarMap& vars) {
