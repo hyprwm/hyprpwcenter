@@ -8,6 +8,32 @@ void I18n::initEngine() {
     engine.setFallbackLocale("en_US");
     engineLocale = engine.getSystemLocale().locale();
 
+    // ar (Arabic)
+    engine.registerEntry("ar", TXT_KEY_PW_CENTER_TITLE, "مركز التحكم ب Pipewire ");
+
+    engine.registerEntry("ar", TXT_KEY_BUTTON_APPS, "التطبيقات");
+    engine.registerEntry("ar", TXT_KEY_BUTTON_NODES, "العقد");
+    engine.registerEntry("ar", TXT_KEY_BUTTON_INPUTS, "المداخل");
+    engine.registerEntry("ar", TXT_KEY_BUTTON_CONFIGURATION, "الإعدادات");
+    engine.registerEntry("ar", TXT_KEY_BUTTON_GRAPH, "الرسم البياني");
+
+    engine.registerEntry("ar", TXT_KEY_GRAPH_N_PORTS, [](const Hyprutils::I18n::translationVarMap& vars) {
+        const auto count = std::stoi(vars.at("count"));
+        if (count == 1)
+            return "منفذ واحد";
+        else if (count == 2)
+            return "منفذان";
+        else if (count >= 3 && count <= 10)
+            return "{count} منافذ";
+        return "{count} منفذا";
+    });
+    engine.registerEntry("ar", TXT_KEY_GRAPH_PURE_INPUTS, "مدخل فقط");
+    engine.registerEntry("ar", TXT_KEY_GRAPH_ACTIVE_INPUTS, "المداخل النشطة");
+    engine.registerEntry("ar", TXT_KEY_GRAPH_UNCONNECTED_IO, "مدخل/مخرج غير نشط");
+    engine.registerEntry("ar", TXT_KEY_GRAPH_ACTIVE_IO, "مدخل/مخرج نشط");
+    engine.registerEntry("ar", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "المخارج النشطة");
+    engine.registerEntry("ar", TXT_KEY_GRAPH_PURE_OUTPUTS, "مخرج فقط");
+
     // da_DK (Danish)
     engine.registerEntry("da_DK", TXT_KEY_PW_CENTER_TITLE, "Pipewire Kontrol Center");
 
