@@ -52,6 +52,28 @@ void I18n::initEngine() {
     engine.registerEntry("en_US", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "Active Outputs");
     engine.registerEntry("en_US", TXT_KEY_GRAPH_PURE_OUTPUTS, "Pure Outputs");
 
+    // de_DE (German)
+    engine.registerEntry("de_DE", TXT_KEY_PW_CENTER_TITLE, "Pipewire Kontrollzentrum");
+
+    engine.registerEntry("de_DE", TXT_KEY_BUTTON_APPS, "Apps");
+    engine.registerEntry("de_DE", TXT_KEY_BUTTON_NODES, "Knoten");
+    engine.registerEntry("de_DE", TXT_KEY_BUTTON_INPUTS, "Eingaben");
+    engine.registerEntry("de_DE", TXT_KEY_BUTTON_CONFIGURATION, "Konfiguration");
+    engine.registerEntry("de_DE", TXT_KEY_BUTTON_GRAPH, "Graph");
+
+    engine.registerEntry("de_DE", TXT_KEY_GRAPH_N_PORTS, [](const Hyprutils::I18n::translationVarMap& vars) {
+        const auto count = std::stoi(vars.at("count"));
+        if (count == 1)
+            return "1 Anschluss";
+        return "{count} Anschlüsse";
+    });
+    engine.registerEntry("de_DE", TXT_KEY_GRAPH_PURE_INPUTS, "Reine Eingaben");
+    engine.registerEntry("de_DE", TXT_KEY_GRAPH_ACTIVE_INPUTS, "Aktive Eingaben");
+    engine.registerEntry("de_DE", TXT_KEY_GRAPH_UNCONNECTED_IO, "Unverbundene I/O");
+    engine.registerEntry("de_DE", TXT_KEY_GRAPH_ACTIVE_IO, "Aktive I/O");
+    engine.registerEntry("de_DE", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "Aktive Ausgaben");
+    engine.registerEntry("de_DE", TXT_KEY_GRAPH_PURE_OUTPUTS, "Reine Ausgaben");
+
     // it_IT (Italian)
     engine.registerEntry("it_IT", TXT_KEY_PW_CENTER_TITLE, "Impostazioni di Pipewire");
 
