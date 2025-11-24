@@ -1,7 +1,7 @@
 #include "PwDevice.hpp"
 #include "PwState.hpp"
 #include "../ui/UI.hpp"
-#include "../helpers/Log.hpp"
+#include "../helpers/Logger.hpp"
 
 extern "C" {
 #include <pipewire/pipewire.h>
@@ -72,7 +72,7 @@ static void onDeviceParam(void* data, int seq, uint32_t id, uint32_t index, uint
     if (profileIdx == INT32_MAX)
         return;
 
-    Debug::log(TRACE, "device {}: update profile id {}", dev->m_id, profileIdx);
+    g_logger->log(LOG_TRACE, "device {}: update profile id {}", dev->m_id, profileIdx);
 
     // isEnum == true: we’re processing list of possible profiles
     // isEnum == false: we’re processing current profile

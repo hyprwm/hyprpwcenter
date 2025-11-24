@@ -27,7 +27,7 @@ pkg_check_modules(
   hyprtoolkit
   pixman-1
   libdrm
-  hyprutils>=0.10.2
+  hyprutils>=0.10.4
 )
 
 set(CMAKE_CXX_STANDARD 23)

@@ -4,6 +4,7 @@
 #include "./graph/Graph.hpp"
 #include "../pw/PwState.hpp"
 #include "../i18n/Engine.hpp"
+#include "../helpers/Logger.hpp"
 
 #include <hyprutils/string/String.hpp>
 
@@ -14,8 +15,13 @@ constexpr float MAIN_PADDING  = 10;
 constexpr float SMALL_PADDING = 6;
 
 CUI::CUI() {
-    m_backend = Hyprtoolkit::IBackend::create();
-    m_window  = Hyprtoolkit::CWindowBuilder::begin()->appTitle(I18n::localize(I18n::TXT_KEY_PW_CENTER_TITLE))->appClass("hyprpwcenter")->commence();
+    Hyprtoolkit::IBackend::SBackendCreationData data;
+    data.pLogConnection = makeShared<Hyprutils::CLI::CLoggerConnection>(*g_logger);
+    data.pLogConnection->setName("hyprtoolkit");
+    data.pLogConnection->setLogLevel(LOG_DEBUG);
+    m_backend = Hyprtoolkit::IBackend::createWithData(data);
+
+    m_window = Hyprtoolkit::CWindowBuilder::begin()->appTitle(I18n::localize(I18n::TXT_KEY_PW_CENTER_TITLE))->appClass("hyprpwcenter")->commence();
 
     m_background = Hyprtoolkit::CRectangleBuilder::begin()->color([this] { return m_backend->getPalette()->m_colors.background; })->commence();
 
