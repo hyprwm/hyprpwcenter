@@ -451,6 +451,28 @@ void I18n::initEngine() {
     engine.registerEntry("es_ES", TXT_KEY_GRAPH_ACTIVE_IO, "E/S Activa");
     engine.registerEntry("es_ES", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "Salidas Activas");
     engine.registerEntry("es_ES", TXT_KEY_GRAPH_PURE_OUTPUTS, "Salidas Puras");
+
+    // ne_NP (Nepali)
+    engine.registerEntry("ne_NP", TXT_KEY_PW_CENTER_TITLE, "पाइपवायर नियन्त्रण केन्द्र");
+
+    engine.registerEntry("ne_NP", TXT_KEY_BUTTON_APPS, "एपहरु");
+    engine.registerEntry("ne_NP", TXT_KEY_BUTTON_NODES, "नोडहरु");
+    engine.registerEntry("ne_NP", TXT_KEY_BUTTON_INPUTS, "इनपुटहरु");
+    engine.registerEntry("ne_NP", TXT_KEY_BUTTON_CONFIGURATION, "कन्फीग्युरेशन");
+    engine.registerEntry("ne_NP", TXT_KEY_BUTTON_GRAPH, "ग्राफ");
+
+    engine.registerEntry("ne_NP", TXT_KEY_GRAPH_N_PORTS, [](const Hyprutils::I18n::translationVarMap& vars) {
+        const auto count = std::stoi(vars.at("count"));
+        if (count == 1)
+            return "1 पोर्ट";
+        return "{count} पोर्टहरु";
+    });
+    engine.registerEntry("ne_NP", TXT_KEY_GRAPH_PURE_INPUTS, "शुद्ध इनपुटहरु");
+    engine.registerEntry("ne_NP", TXT_KEY_GRAPH_ACTIVE_INPUTS, "सक्रिय इनपुटहरु");
+    engine.registerEntry("ne_NP", TXT_KEY_GRAPH_UNCONNECTED_IO, "नजोडिएका I/O");
+    engine.registerEntry("ne_NP", TXT_KEY_GRAPH_ACTIVE_IO, "सक्रिय I/O");
+    engine.registerEntry("ne_NP", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "सक्रिय आउटपुटहरु");
+    engine.registerEntry("ne_NP", TXT_KEY_GRAPH_PURE_OUTPUTS, "शुद्ध आउटपुटहरु");
 }
 
 std::string I18n::localize(eTextKeys key, const Hyprutils::I18n::translationVarMap& vars) {
