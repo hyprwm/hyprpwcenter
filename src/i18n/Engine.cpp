@@ -406,6 +406,23 @@ void I18n::initEngine() {
     engine.registerEntry("tr_TR", TXT_KEY_GRAPH_ACTIVE_IO, "Aktif I/O");
     engine.registerEntry("tr_TR", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "Aktif Çıkışlar");
     engine.registerEntry("tr_TR", TXT_KEY_GRAPH_PURE_OUTPUTS, "Saf Çıkışlar");
+
+    // tt_RU (Tatar)
+    engine.registerEntry("tt_RU", TXT_KEY_PW_CENTER_TITLE, "Pipewire идарә үзәге");
+
+    engine.registerEntry("tt_RU", TXT_KEY_BUTTON_APPS, "Кушымталар");
+    engine.registerEntry("tt_RU", TXT_KEY_BUTTON_NODES, "Төеннәр");
+    engine.registerEntry("tt_RU", TXT_KEY_BUTTON_INPUTS, "Керешләр");
+    engine.registerEntry("tt_RU", TXT_KEY_BUTTON_CONFIGURATION, "Көйләү");
+    engine.registerEntry("tt_RU", TXT_KEY_BUTTON_GRAPH, "Граф");
+
+    engine.registerEntry("tt_RU", TXT_KEY_GRAPH_N_PORTS, "{count} порт");
+    engine.registerEntry("tt_RU", TXT_KEY_GRAPH_PURE_INPUTS, "Таза керешләр");
+    engine.registerEntry("tt_RU", TXT_KEY_GRAPH_ACTIVE_INPUTS, "Актив керешләр");
+    engine.registerEntry("tt_RU", TXT_KEY_GRAPH_UNCONNECTED_IO, "Тоташтырылмаган К/Ч");
+    engine.registerEntry("tt_RU", TXT_KEY_GRAPH_ACTIVE_IO, "Актив К/Ч");
+    engine.registerEntry("tt_RU", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "Актив чыгышлар");
+    engine.registerEntry("tt_RU", TXT_KEY_GRAPH_PURE_OUTPUTS, "Таза чыгышлар");
     //
 
     // el_GR (Greek)
