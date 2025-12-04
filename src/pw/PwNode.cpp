@@ -39,6 +39,8 @@ static void onNodeParam(void* data, int seq, uint32_t id, uint32_t index, uint32
     const spa_pod_prop* p;
     spa_pod_object*     obj = (spa_pod_object*)param;
 
+    std::optional<bool> isMuted;
+
     SPA_POD_OBJECT_FOREACH(obj, p) {
 
         if (p->key == SPA_PROP_channelVolumes) {
@@ -70,12 +72,27 @@ static void onNodeParam(void* data, int seq, uint32_t id, uint32_t index, uint32
         }
 
         if (p->key == SPA_PROP_softMute) {
+            bool muted = false;
             if (spa_pod_is_bool(&p->value))
-                spa_pod_get_bool(&p->value, &node->m_muted);
+                spa_pod_get_bool(&p->value, &muted);
+
+            isMuted = isMuted.value_or(false) || muted;
+
+            continue;
+        }
+
+        if (p->key == SPA_PROP_mute) {
+            bool muted = false;
+            if (spa_pod_is_bool(&p->value))
+                spa_pod_get_bool(&p->value, &muted);
+
+            isMuted = isMuted.value_or(false) || muted;
 
             continue;
         }
     }
+
+    node->m_muted = isMuted.value_or(node->m_muted);
 
     g_ui->updateNode(node->m_self);
 }
@@ -170,6 +187,14 @@ void CPipewireNode::setMute(bool x) {
 
     spa_pod_builder_prop(&builder, SPA_PROP_softMute, 0);
     spa_pod_builder_bool(&builder, x);
+
+    if (m_muted && !x) {
+        // only use SPA_PROP_mute when unmuting. Something else could've set _mute,
+        // but in general we shouldn't use this over softMute, but it WILL mute, so we need
+        // to unset it when unmuting.
+        spa_pod_builder_prop(&builder, SPA_PROP_mute, 0);
+        spa_pod_builder_bool(&builder, x);
+    }
 
     const spa_pod* pod = rc<spa_pod*>(spa_pod_builder_pop(&builder, &object_frame));
 
