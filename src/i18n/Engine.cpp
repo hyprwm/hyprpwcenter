@@ -516,6 +516,23 @@ void I18n::initEngine() {
     engine.registerEntry("ne_NP", TXT_KEY_GRAPH_ACTIVE_IO, "सक्रिय I/O");
     engine.registerEntry("ne_NP", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "सक्रिय आउटपुटहरु");
     engine.registerEntry("ne_NP", TXT_KEY_GRAPH_PURE_OUTPUTS, "शुद्ध आउटपुटहरु");
+
+    // zh_CN (Chinese Simplified)
+    engine.registerEntry("zh_CN", TXT_KEY_PW_CENTER_TITLE, "Pipewire 控制中心");
+
+    engine.registerEntry("zh_CN", TXT_KEY_BUTTON_APPS, "应用");
+    engine.registerEntry("zh_CN", TXT_KEY_BUTTON_NODES, "节点");
+    engine.registerEntry("zh_CN", TXT_KEY_BUTTON_INPUTS, "输入");
+    engine.registerEntry("zh_CN", TXT_KEY_BUTTON_CONFIGURATION, "设置");
+    engine.registerEntry("zh_CN", TXT_KEY_BUTTON_GRAPH, "图表");
+
+    engine.registerEntry("zh_CN", TXT_KEY_GRAPH_N_PORTS, "{count} 个端口");
+    engine.registerEntry("zh_CN", TXT_KEY_GRAPH_PURE_INPUTS, "仅输入");
+    engine.registerEntry("zh_CN", TXT_KEY_GRAPH_ACTIVE_INPUTS, "活跃输入");
+    engine.registerEntry("zh_CN", TXT_KEY_GRAPH_UNCONNECTED_IO, "未连接 I/O");
+    engine.registerEntry("zh_CN", TXT_KEY_GRAPH_ACTIVE_IO, "活跃 I/O");
+    engine.registerEntry("zh_CN", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "活跃输出");
+    engine.registerEntry("zh_CN", TXT_KEY_GRAPH_PURE_OUTPUTS, "仅输出");
 }
 
 std::string I18n::localize(eTextKeys key, const Hyprutils::I18n::translationVarMap& vars) {
