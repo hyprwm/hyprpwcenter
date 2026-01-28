@@ -59,7 +59,7 @@ CNodeVolumeSlider::CNodeVolumeSlider(uint32_t id, const std::string& name) : m_i
     m_topName = Hyprtoolkit::CTextBuilder::begin()->text(std::string{name})->commence();
 
     m_topRightContainer =
-        Hyprtoolkit::CNullBuilder::begin()->size({Hyprtoolkit::CDynamicSize::HT_SIZE_ABSOLUTE, Hyprtoolkit::CDynamicSize::HT_SIZE_ABSOLUTE, {75.F, BUTTON_HEIGHT}})->commence();
+        Hyprtoolkit::CNullBuilder::begin()->size({Hyprtoolkit::CDynamicSize::HT_SIZE_ABSOLUTE, Hyprtoolkit::CDynamicSize::HT_SIZE_ABSOLUTE, {85.F, BUTTON_HEIGHT}})->commence();
     m_topRightLayout =
         Hyprtoolkit::CRowLayoutBuilder::begin()->size({Hyprtoolkit::CDynamicSize::HT_SIZE_PERCENT, Hyprtoolkit::CDynamicSize::HT_SIZE_PERCENT, {1, 1}})->gap(5)->commence();
     m_topRightSpacer = Hyprtoolkit::CNullBuilder::begin()->size({Hyprtoolkit::CDynamicSize::HT_SIZE_ABSOLUTE, Hyprtoolkit::CDynamicSize::HT_SIZE_ABSOLUTE, {1, 1}})->commence();
