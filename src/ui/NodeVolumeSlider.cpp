@@ -6,8 +6,22 @@
 constexpr float NODE_BOTTOM_HEIGHT = 8;
 constexpr float INNER_MARGIN       = 4;
 constexpr float BUTTON_HEIGHT      = 26;
+constexpr float RIGHT_GAP          = 5;
+constexpr float SPACER_WIDTH       = 1;
+
+static float precalcVolTextWidth() {
+    auto text   = Hyprtoolkit::CTextBuilder::begin()->text(std::string{"100%"})->async(false)->commence();
+    auto layout = Hyprtoolkit::CColumnLayoutBuilder::begin()->size({Hyprtoolkit::CDynamicSize::HT_SIZE_AUTO, Hyprtoolkit::CDynamicSize::HT_SIZE_AUTO, {1.F, 1.F}})->commence();
+    auto null   = Hyprtoolkit::CNullBuilder::begin()->size({Hyprtoolkit::CDynamicSize::HT_SIZE_ABSOLUTE, Hyprtoolkit::CDynamicSize::HT_SIZE_ABSOLUTE, {99999.F, 99999.F}})->commence();
+    layout->addChild(text);
+    null->addChild(layout);
+    layout->forceReposition();
+    return layout->size().x;
+}
 
 CNodeVolumeSlider::CNodeVolumeSlider(uint32_t id, const std::string& name) : m_id(id) {
+    static const float VOL_TEXT_WIDTH = precalcVolTextWidth();
+
     m_background = Hyprtoolkit::CRectangleBuilder::begin()
                        ->color([] { return g_ui->m_backend->getPalette()->m_colors.background.brighten(0.05F); })
                        ->rounding(6)
@@ -59,10 +73,12 @@ CNodeVolumeSlider::CNodeVolumeSlider(uint32_t id, const std::string& name) : m_i
     m_topName = Hyprtoolkit::CTextBuilder::begin()->text(std::string{name})->commence();
 
     m_topRightContainer =
-        Hyprtoolkit::CNullBuilder::begin()->size({Hyprtoolkit::CDynamicSize::HT_SIZE_ABSOLUTE, Hyprtoolkit::CDynamicSize::HT_SIZE_ABSOLUTE, {85.F, BUTTON_HEIGHT}})->commence();
+        Hyprtoolkit::CNullBuilder::begin()
+            ->size({Hyprtoolkit::CDynamicSize::HT_SIZE_ABSOLUTE, Hyprtoolkit::CDynamicSize::HT_SIZE_ABSOLUTE, {VOL_TEXT_WIDTH + BUTTON_HEIGHT + (RIGHT_GAP * 2) + SPACER_WIDTH, BUTTON_HEIGHT}})
+            ->commence();
     m_topRightLayout =
-        Hyprtoolkit::CRowLayoutBuilder::begin()->size({Hyprtoolkit::CDynamicSize::HT_SIZE_PERCENT, Hyprtoolkit::CDynamicSize::HT_SIZE_PERCENT, {1, 1}})->gap(5)->commence();
-    m_topRightSpacer = Hyprtoolkit::CNullBuilder::begin()->size({Hyprtoolkit::CDynamicSize::HT_SIZE_ABSOLUTE, Hyprtoolkit::CDynamicSize::HT_SIZE_ABSOLUTE, {1, 1}})->commence();
+        Hyprtoolkit::CRowLayoutBuilder::begin()->size({Hyprtoolkit::CDynamicSize::HT_SIZE_PERCENT, Hyprtoolkit::CDynamicSize::HT_SIZE_PERCENT, {1, 1}})->gap(RIGHT_GAP)->commence();
+    m_topRightSpacer = Hyprtoolkit::CNullBuilder::begin()->size({Hyprtoolkit::CDynamicSize::HT_SIZE_ABSOLUTE, Hyprtoolkit::CDynamicSize::HT_SIZE_ABSOLUTE, {SPACER_WIDTH, SPACER_WIDTH}})->commence();
     m_topRightSpacer->setGrow(true);
 
     m_topVol    = Hyprtoolkit::CTextBuilder::begin()->text(std::format("{}%", sc<int>(logdVolume() * 100.F)))->commence();
