@@ -533,6 +533,23 @@ void I18n::initEngine() {
     engine.registerEntry("zh_CN", TXT_KEY_GRAPH_ACTIVE_IO, "活跃 I/O");
     engine.registerEntry("zh_CN", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "活跃输出");
     engine.registerEntry("zh_CN", TXT_KEY_GRAPH_PURE_OUTPUTS, "仅输出");
+
+    // zh_TW (Traditional Chinese)
+    engine.registerEntry("zh_TW", TXT_KEY_PW_CENTER_TITLE, "PipeWire 控制中心");
+
+    engine.registerEntry("zh_TW", TXT_KEY_BUTTON_APPS, "應用程式");
+    engine.registerEntry("zh_TW", TXT_KEY_BUTTON_NODES, "節點");
+    engine.registerEntry("zh_TW", TXT_KEY_BUTTON_INPUTS, "輸入");
+    engine.registerEntry("zh_TW", TXT_KEY_BUTTON_CONFIGURATION, "設定");
+    engine.registerEntry("zh_TW", TXT_KEY_BUTTON_GRAPH, "連線圖");
+
+    engine.registerEntry("zh_TW", TXT_KEY_GRAPH_N_PORTS, "{count} 個連接埠");
+    engine.registerEntry("zh_TW", TXT_KEY_GRAPH_PURE_INPUTS, "純輸入");
+    engine.registerEntry("zh_TW", TXT_KEY_GRAPH_ACTIVE_INPUTS, "作用中輸入");
+    engine.registerEntry("zh_TW", TXT_KEY_GRAPH_UNCONNECTED_IO, "未連接 I/O");
+    engine.registerEntry("zh_TW", TXT_KEY_GRAPH_ACTIVE_IO, "作用中 I/O");
+    engine.registerEntry("zh_TW", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "作用中輸出");
+    engine.registerEntry("zh_TW", TXT_KEY_GRAPH_PURE_OUTPUTS, "純輸出");
 }
 
 std::string I18n::localize(eTextKeys key, const Hyprutils::I18n::translationVarMap& vars) {
