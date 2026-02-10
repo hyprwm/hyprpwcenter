@@ -1,6 +1,6 @@
 #pragma once
 
-#include <vector>
+#include <optional>
 #include <cstdint>
 
 #include "IPwNode.hpp"
@@ -10,14 +10,12 @@ extern "C" {
 #include <spa/utils/hook.h>
 }
 
-#include "../helpers/Memory.hpp"
-
 class CPipewireNode : public IPwNode {
   public:
     CPipewireNode(uint32_t id, uint32_t permissions, const char* type, uint32_t version, const spa_dict* props);
     ~CPipewireNode();
 
-    virtual void setVolume(float x);
+    virtual void setVolume(float x, bool force = false);
     virtual void setMute(bool x);
     virtual bool controllable();
 
@@ -28,6 +26,6 @@ class CPipewireNode : public IPwNode {
 
     // Thanks fox: some soundcards take a while to register the update
     // and get overloaded if you send too many.
-    bool  m_deviceBusy   = false;
-    float m_queuedVolume = -1.F;
+    bool                 m_deviceBusy = false;
+    std::optional<float> m_queuedVolume;
 };

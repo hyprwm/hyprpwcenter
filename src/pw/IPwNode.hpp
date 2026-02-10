@@ -15,9 +15,9 @@ class IPwNode {
   public:
     virtual ~IPwNode() = default;
 
-    virtual void                   setVolume(float x) = 0;
-    virtual void                   setMute(bool x)    = 0;
-    virtual bool                   controllable()     = 0;
+    virtual void                   setVolume(float x, bool force = false) = 0;
+    virtual void                   setMute(bool x)                        = 0;
+    virtual bool                   controllable()                         = 0;
 
     static const char*             getNameForChannel(spa_audio_channel);
 

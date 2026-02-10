@@ -58,8 +58,8 @@ static void onNodeParam(void* data, int seq, uint32_t id, uint32_t index, uint32
 
             node->m_deviceBusy = false;
 
-            if (node->m_queuedVolume >= 0.F)
-                node->setVolume(node->m_queuedVolume);
+            if (node->m_queuedVolume)
+                node->setVolume(*node->m_queuedVolume);
 
             continue;
         }
@@ -144,8 +144,8 @@ CPipewireNode::~CPipewireNode() {
     pw_proxy_destroy(rc<pw_proxy*>(m_proxy));
 }
 
-void CPipewireNode::setVolume(float x) {
-    if (std::abs(x - m_volume) < PW_VOLUME_EPSILON)
+void CPipewireNode::setVolume(float x, bool force) {
+    if (!force && std::abs(x - m_volume) < PW_VOLUME_EPSILON)
         return;
 
     if (m_deviceBusy) {
@@ -173,8 +173,8 @@ void CPipewireNode::setVolume(float x) {
 
     pw_node_set_param(m_proxy, SPA_PARAM_Props, 0, pod);
 
-    m_deviceBusy   = true;
-    m_queuedVolume = -1.F;
+    m_deviceBusy = true;
+    m_queuedVolume.reset();
 }
 
 void CPipewireNode::setMute(bool x) {
@@ -202,6 +202,13 @@ void CPipewireNode::setMute(bool x) {
 
     m_muted = x;
     g_ui->updateNode(m_self);
+
+    if (!x) {
+        // set volume on unmute as well. Pipewire for some reason sets it to 100% by default.
+        // We can't throw it into the above spa_pod because it's ignored (???)
+        Debug::log(LOG, "Setting volume on unmute to {}%", std::round(m_volume * 100.F));
+        setVolume(m_volume, true);
+    }
 }
 
 bool CPipewireNode::controllable() {
