@@ -1,6 +1,6 @@
 #include "PwState.hpp"
 #include "PwDevice.hpp"
-#include "../helpers/Log.hpp"
+#include "../helpers/Logger.hpp"
 #include "../ui/UI.hpp"
 
 #include <algorithm>
@@ -38,7 +38,7 @@ CPipewireState::CPipewireState(int argc, char** argv) {
     m_pwState.context = pw_context_new(pw_main_loop_get_loop(m_pwState.loop), nullptr, 0);
     m_pwState.core    = pw_context_connect(m_pwState.context, nullptr, 0);
     if (!m_pwState.core) {
-        Debug::log(CRIT, "Couldn't connect to pw");
+        g_logger->log(LOG_CRIT, "Couldn't connect to pw");
         exit(1);
     }
 

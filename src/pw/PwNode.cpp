@@ -1,7 +1,7 @@
 #include "PwNode.hpp"
 #include "PwState.hpp"
 #include "../ui/UI.hpp"
-#include "../helpers/Log.hpp"
+#include "../helpers/Logger.hpp"
 #include "PwConstants.hpp"
 
 extern "C" {
@@ -123,7 +123,7 @@ CPipewireNode::CPipewireNode(uint32_t id, uint32_t permissions, const char* type
     m_mediaClass = mc ? mc : "";
     m_proxy      = sc<pw_node*>(pw_registry_bind(g_pipewire->m_pwState.registry, id, PW_TYPE_INTERFACE_Node, PW_VERSION_NODE, 0));
 
-    Debug::log(TRACE, "[pw] node {}: {} of {}", id, m_name, m_mediaClass);
+    g_logger->log(LOG_TRACE, "[pw] node {}: {} of {}", id, m_name, m_mediaClass);
 
     spa_zero(m_listener);
     pw_node_add_listener(m_proxy, &m_listener, &NODE_EVENTS, this);
@@ -206,7 +206,7 @@ void CPipewireNode::setMute(bool x) {
     if (!x) {
         // set volume on unmute as well. Pipewire for some reason sets it to 100% by default.
         // We can't throw it into the above spa_pod because it's ignored (???)
-        Debug::log(LOG, "Setting volume on unmute to {}%", std::round(m_volume * 100.F));
+        g_logger->log(LOG_DEBUG, "Setting volume on unmute to {}%", std::round(m_volume * 100.F));
         setVolume(m_volume, true);
     }
 }

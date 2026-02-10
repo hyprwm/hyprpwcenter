@@ -3,7 +3,7 @@
 #include "Graph.hpp"
 #include "../UI.hpp"
 #include "../../pw/IPwNode.hpp"
-#include "../../helpers/Log.hpp"
+#include "../../helpers/Logger.hpp"
 #include "../../i18n/Engine.hpp"
 
 using namespace Hyprutils::Math;

@@ -1,7 +1,7 @@
 #include "PwLink.hpp"
 #include "PwState.hpp"
 #include "../ui/UI.hpp"
-#include "../helpers/Log.hpp"
+#include "../helpers/Logger.hpp"
 
 extern "C" {
 #include <pipewire/pipewire.h>
@@ -44,7 +44,7 @@ static void onLinkInfo(void* data, const pw_link_info* info) {
         link->m_portAID = std::stoi(s);
 
     if (!link->m_portAID || !link->m_portBID || !link->m_nodeAID || !link->m_nodeBID) {
-        Debug::log(ERR, "Link {} is invalid: missing props", link->m_id);
+        g_logger->log(LOG_ERR, "Link {} is invalid: missing props", link->m_id);
         return;
     }
 

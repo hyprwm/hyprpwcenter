@@ -1,7 +1,7 @@
 #include "PwPort.hpp"
 #include "PwState.hpp"
 #include "../ui/UI.hpp"
-#include "../helpers/Log.hpp"
+#include "../helpers/Logger.hpp"
 
 extern "C" {
 #include <pipewire/pipewire.h>
@@ -117,7 +117,7 @@ CPipewirePort::CPipewirePort(uint32_t id, uint32_t permissions, const char* type
     if (nid) {
         try {
             m_nodeID = std::stoi(nid);
-        } catch (...) { Debug::log(ERR, "pw: port has node id of {}, which isnt an int?", nid); }
+        } catch (...) { g_logger->log(LOG_ERR, "pw: port has node id of {}, which isnt an int?", nid); }
     }
 
     m_proxy = rc<pw_port*>(pw_registry_bind(g_pipewire->m_pwState.registry, id, PW_TYPE_INTERFACE_Port, PW_VERSION_PORT, 0));

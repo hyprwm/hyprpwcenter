@@ -1,6 +1,6 @@
 #include "pw/PwState.hpp"
 #include "ui/UI.hpp"
-#include "helpers/Log.hpp"
+#include "helpers/Logger.hpp"
 #include "i18n/Engine.hpp"
 
 int main(int argc, char** argv, char** envp) {
@@ -13,10 +13,10 @@ int main(int argc, char** argv, char** envp) {
         std::string_view sv{argv[i]};
 
         if (sv == "--verbose") {
-            Debug::verbose = true;
+            g_logger->setLogLevel(LOG_TRACE);
             continue;
         } else if (sv == "--quiet") {
-            Debug::quiet = true;
+            g_logger->setEnableStdout(false);
             continue;
         }
     }
