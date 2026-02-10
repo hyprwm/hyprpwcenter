@@ -17,7 +17,7 @@ static float    precalcVolTextWidth() {
     layout->addChild(text);
     null->addChild(layout);
     layout->forceReposition();
-    return layout->size().x;
+    return layout->size().x + 4 /* layouting margin */;
 }
 
 CNodeVolumeSlider::CNodeVolumeSlider(uint32_t id, const std::string& name) : m_id(id) {
