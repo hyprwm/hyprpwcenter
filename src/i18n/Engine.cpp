@@ -550,6 +550,28 @@ void I18n::initEngine() {
     engine.registerEntry("zh_TW", TXT_KEY_GRAPH_ACTIVE_IO, "作用中 I/O");
     engine.registerEntry("zh_TW", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "作用中輸出");
     engine.registerEntry("zh_TW", TXT_KEY_GRAPH_PURE_OUTPUTS, "純輸出");
+
+      // pt_BR (Brazilian Portuguese)
+    engine.registerEntry("pt_BR", TXT_KEY_PW_CENTER_TITLE, "Centro de Controle do Pipewire");
+
+    engine.registerEntry("pt_BR", TXT_KEY_BUTTON_APPS, "Aplicativos");
+    engine.registerEntry("pt_BR", TXT_KEY_BUTTON_NODES, "Nódulos");
+    engine.registerEntry("pt_BR", TXT_KEY_BUTTON_INPUTS, "Entradas");
+    engine.registerEntry("pt_BR", TXT_KEY_BUTTON_CONFIGURATION, "Configuração");
+    engine.registerEntry("pt_BR", TXT_KEY_BUTTON_GRAPH, "Gráfico");
+
+    engine.registerEntry("pt_BR", TXT_KEY_GRAPH_N_PORTS, [](const Hyprutils::I18n::translationVarMap& vars) {
+        const auto count = std::stoi(vars.at("count"));
+        if (count == 1)
+            return "1 porta";
+        return "{count} portas";
+    });
+    engine.registerEntry("pt_BR", TXT_KEY_GRAPH_PURE_INPUTS, "Entradas Puras");
+    engine.registerEntry("pt_BR", TXT_KEY_GRAPH_ACTIVE_INPUTS, "Entras Ativas");
+    engine.registerEntry("pt_BR", TXT_KEY_GRAPH_UNCONNECTED_IO, "E/S Desconectadas");
+    engine.registerEntry("pt_BR", TXT_KEY_GRAPH_ACTIVE_IO, "E/S Ativas");
+    engine.registerEntry("pt_BR", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "Saídas");
+    engine.registerEntry("pt_BR", TXT_KEY_GRAPH_PURE_OUTPUTS, "Saídas Puras");
 }
 
 std::string I18n::localize(eTextKeys key, const Hyprutils::I18n::translationVarMap& vars) {
