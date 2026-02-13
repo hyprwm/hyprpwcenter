@@ -567,7 +567,7 @@ void I18n::initEngine() {
         return "{count} portas";
     });
     engine.registerEntry("pt_BR", TXT_KEY_GRAPH_PURE_INPUTS, "Entradas Puras");
-    engine.registerEntry("pt_BR", TXT_KEY_GRAPH_ACTIVE_INPUTS, "Entras Ativas");
+    engine.registerEntry("pt_BR", TXT_KEY_GRAPH_ACTIVE_INPUTS, "Entradas Ativas");
     engine.registerEntry("pt_BR", TXT_KEY_GRAPH_UNCONNECTED_IO, "E/S Desconectadas");
     engine.registerEntry("pt_BR", TXT_KEY_GRAPH_ACTIVE_IO, "E/S Ativas");
     engine.registerEntry("pt_BR", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "Saídas");
