@@ -17,21 +17,23 @@ in
 {
   default = inputs.self.overlays.hyprpwcenter;
 
-  hyprpwcenter = lib.composeManyExtensions [
+  hyprpwcenter-with-deps = lib.composeManyExtensions [
     inputs.aquamarine.overlays.default
     inputs.hyprgraphics.overlays.default
     inputs.hyprtoolkit.overlays.default
     inputs.hyprutils.overlays.default
-    (final: prev: {
-      hyprpwcenter = prev.callPackage ./default.nix {
-        stdenv = prev.gcc15Stdenv;
-        version =
-          version
-          + "+date="
-          + (mkDate (inputs.self.lastModifiedDate or "19700101"))
-          + "_"
-          + (inputs.self.shortRev or "dirty");
-      };
-    })
+    self.overlays.hyprpwcenter
   ];
+
+  hyprpwcenter = final: prev: {
+    hyprpwcenter = prev.callPackage ./default.nix {
+      stdenv = prev.gcc15Stdenv;
+      version =
+        version
+        + "+date="
+        + (mkDate (inputs.self.lastModifiedDate or "19700101"))
+        + "_"
+        + (inputs.self.shortRev or "dirty");
+    };
+  };
 }

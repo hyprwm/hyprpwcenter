@@ -56,9 +56,7 @@
         system:
         import nixpkgs {
           localSystem.system = system;
-          overlays = with self.overlays; [
-            hyprpwcenter
-          ];
+          overlays = with self.overlays; [ hyprpwcenter-with-deps ];
         }
       );
     in
