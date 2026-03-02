@@ -72,6 +72,6 @@
 
       checks = eachSystem (system: self.packages.${system});
 
-      formatter = eachSystem (system: pkgsFor.${system}.alejandra);
+      formatter = eachSystem (system: pkgsFor.${system}.nixfmt-tree);
     };
 }
