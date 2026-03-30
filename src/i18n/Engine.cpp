@@ -551,7 +551,7 @@ void I18n::initEngine() {
     engine.registerEntry("zh_TW", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "作用中輸出");
     engine.registerEntry("zh_TW", TXT_KEY_GRAPH_PURE_OUTPUTS, "純輸出");
 
-      // pt_BR (Brazilian Portuguese)
+    // pt_BR (Brazilian Portuguese)
     engine.registerEntry("pt_BR", TXT_KEY_PW_CENTER_TITLE, "Centro de Controle do Pipewire");
 
     engine.registerEntry("pt_BR", TXT_KEY_BUTTON_APPS, "Aplicativos");

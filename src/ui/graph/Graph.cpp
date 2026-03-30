@@ -194,6 +194,9 @@ void CGraphView::rearrange() {
     m_scrollArea->setScroll(m_initialPos - Vector2D{40.F, 40.F});
 
     m_columnOffsets = {20, 20, 20, 20, 20, 20};
+    for (auto& col : m_columnNodes) {
+        col.clear();
+    }
 
     for (size_t i = 0; i < m_columnLabels.size(); ++i) {
         m_columnLabels[i].first->setAbsolutePosition(m_initialPos + Vector2D{i * COLUMN_GAP, -10.F});
@@ -223,56 +226,44 @@ void CGraphView::addNode(WP<IPwNode> node) {
 }
 
 void CGraphView::positionNewNode(SP<CGraphNode> x) {
-    float size = 0;
+    size_t col = 0;
     switch (x->nodePolarity()) {
-        case CGraphNode::NODE_PURE_INPUT:
-            x->setPos(m_initialPos + Vector2D{0.F, m_columnOffsets[0]});
-            size = x->size().y;
-            if (size == 0)
-                size = 150;
-            m_columnOffsets[0] += size + ELEMENT_GAP;
-            break;
-
-        case CGraphNode::NODE_INPUT:
-            x->setPos(m_initialPos + Vector2D{COLUMN_GAP, m_columnOffsets[1]});
-            size = x->size().y;
-            if (size == 0)
-                size = 150;
-            m_columnOffsets[1] += size + ELEMENT_GAP;
-            break;
-
-        case CGraphNode::NODE_UNCONNECTED_IO:
-            x->setPos(m_initialPos + Vector2D{COLUMN_GAP * 2, m_columnOffsets[2]});
-            size = x->size().y;
-            if (size == 0)
-                size = 150;
-            m_columnOffsets[2] += size + ELEMENT_GAP;
-            break;
-
-        case CGraphNode::NODE_IO:
-            x->setPos(m_initialPos + Vector2D{COLUMN_GAP * 3, m_columnOffsets[3]});
-            size = x->size().y;
-            if (size == 0)
-                size = 150;
-            m_columnOffsets[3] += size + ELEMENT_GAP;
-            break;
-
-        case CGraphNode::NODE_OUTPUT:
-            x->setPos(m_initialPos + Vector2D{COLUMN_GAP * 4, m_columnOffsets[4]});
-            size = x->size().y;
-            if (size == 0)
-                size = 150;
-            m_columnOffsets[4] += size + ELEMENT_GAP;
-            break;
-
-        case CGraphNode::NODE_PURE_OUTPUT:
-            x->setPos(m_initialPos + Vector2D{COLUMN_GAP * 5, m_columnOffsets[5]});
-            size = x->size().y;
-            if (size == 0)
-                size = 150;
-            m_columnOffsets[5] += size + ELEMENT_GAP;
-            break;
+        case CGraphNode::NODE_PURE_INPUT: col = 0; break;
+        case CGraphNode::NODE_INPUT: col = 1; break;
+        case CGraphNode::NODE_UNCONNECTED_IO: col = 2; break;
+        case CGraphNode::NODE_IO: col = 3; break;
+        case CGraphNode::NODE_OUTPUT: col = 4; break;
+        case CGraphNode::NODE_PURE_OUTPUT: col = 5; break;
     }
+
+    // recalculate column offset from living nodes to avoid drift from removed ephemeral nodes
+    auto& colNodes = m_columnNodes[col];
+    float offset   = 20;
+    for (size_t i = 0; i < colNodes.size();) {
+        if (!colNodes[i]) {
+            colNodes.erase(colNodes.begin() + i);
+            continue;
+        }
+
+        float h = colNodes[i]->size().y;
+
+        if (h == 0)
+            h = 150;
+
+        offset += h + ELEMENT_GAP;
+        ++i;
+    }
+
+    m_columnOffsets[col] = offset;
+
+    x->setPos(m_initialPos + Vector2D{col * COLUMN_GAP, m_columnOffsets[col]});
+    float size = x->size().y;
+
+    if (size == 0)
+        size = 150;
+
+    m_columnOffsets[col] += size + ELEMENT_GAP;
+    colNodes.emplace_back(x);
 }
 
 void CGraphView::removeNode(WP<IPwNode> node) {

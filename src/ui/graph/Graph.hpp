@@ -55,6 +55,7 @@ class CGraphView {
     //
     Hyprutils::Math::Vector2D                                                              m_initialPos = {};
     std::array<float, 6>                                                                   m_columnOffsets;
+    std::array<std::vector<WP<CGraphNode>>, 6>                                             m_columnNodes;
     std::array<std::pair<SP<Hyprtoolkit::CNullElement>, SP<Hyprtoolkit::CTextElement>>, 6> m_columnLabels;
 
     friend class CGraphNode;
