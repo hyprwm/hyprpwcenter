@@ -278,8 +278,6 @@ void CGraphView::positionNewNode(SP<CGraphNode> x) {
 void CGraphView::removeNode(WP<IPwNode> node) {
     std::erase_if(m_nodes, [node](const auto& e) { return !e || !e->m_node || e->m_node == node; });
     std::erase_if(m_connections, [node](const auto& e) { return !e || !e->m_a || !e->m_b; });
-
-    rearrange();
 }
 
 void CGraphView::addLink(WP<CPipewireLink> link) {
