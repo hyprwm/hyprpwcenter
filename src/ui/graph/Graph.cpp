@@ -327,6 +327,8 @@ void CGraphView::connect(SP<CGraphNode> a, SP<CGraphNode> b, size_t portA, size_
     auto x    = m_connections.emplace_back(makeShared<CGraphConnection>(a, portA, b, portB, link));
     x->m_view = m_self;
     m_container->addChild(x->m_line);
+
+    scheduleUpdateConnections();
 }
 
 void CGraphView::scheduleUpdateConnections() {
@@ -339,8 +341,21 @@ void CGraphView::scheduleUpdateConnections() {
         if (!self)
             return;
 
-        m_setUpdateConnections = false;
-
         updateAllConnections();
+
+        // elements may not be laid out yet by the time idle fires,
+        // schedule another update after layout has had time to complete.
+        // TODO: fix the need for this in toolkit.
+        g_ui->m_backend->addTimer(
+            std::chrono::milliseconds(50),
+            [this, self = m_self](CAtomicSharedPointer<Hyprtoolkit::CTimer>, void*) {
+                if (!self)
+                    return;
+
+                m_setUpdateConnections = false;
+
+                updateAllConnections();
+            },
+            nullptr);
     });
 }
