@@ -53,6 +53,8 @@ class CGraphNode {
     void           update();
     eNodePolarity  nodePolarity();
 
+    void           highlightInput(std::optional<size_t> idx);
+
     WP<IPwNode>    m_node;
     WP<CGraphView> m_view;
 
@@ -71,5 +73,6 @@ class CGraphNode {
 
     std::vector<SP<SAnchor>>  m_anchors;
 
+    std::optional<size_t>     m_highlightedInput;
     Hyprutils::Math::Vector2D m_pos;
 };

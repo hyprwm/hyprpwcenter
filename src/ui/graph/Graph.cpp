@@ -58,9 +58,10 @@ CGraphView::CGraphView() {
             if (m_draggingNode) {
                 const auto newPos = DELTA + m_elementPosAtStart;
 
-                if (m_liveConnection)
+                if (m_liveConnection) {
                     m_liveConnection->updateDest(newPos);
-                else {
+                    updateHighlight();
+                } else {
                     m_draggingNode->setPos(newPos);
                     updateAllConnections(m_draggingNode);
                 }
@@ -170,7 +171,32 @@ CGraphView::CGraphView() {
 
 CGraphView::~CGraphView() = default;
 
+void CGraphView::updateHighlight() {
+    auto node = nodeFromCoord(m_lastMousePos);
+    if (node && node != m_draggingNode && node->m_node) {
+        auto port = node->inputFromPos(m_lastMousePos);
+        if (port) {
+            if (m_highlightedNode && m_highlightedNode != node)
+                m_highlightedNode->highlightInput(std::nullopt);
+            m_highlightedNode = node;
+            node->highlightInput(port);
+            return;
+        }
+    }
+
+    clearHighlight();
+}
+
+void CGraphView::clearHighlight() {
+    if (m_highlightedNode) {
+        m_highlightedNode->highlightInput(std::nullopt);
+        m_highlightedNode.reset();
+    }
+}
+
 void CGraphView::endDrag() {
+    clearHighlight();
+
     if (m_liveConnection && m_draggingNode && m_draggingNode->m_node) {
         // try to connect it
         auto node = nodeFromCoord(m_lastMousePos);

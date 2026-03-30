@@ -244,6 +244,25 @@ size_t CGraphNode::portFromID(size_t id) {
     return 0;
 }
 
+void CGraphNode::highlightInput(std::optional<size_t> idx) {
+    if (m_highlightedInput == idx)
+        return;
+
+    if (m_highlightedInput && *m_highlightedInput < m_anchors.size()) {
+        auto& anchor = m_anchors.at(*m_highlightedInput);
+        if (anchor->leftAnchor)
+            anchor->leftAnchor->rebuild()->color([] { return g_ui->m_backend->getPalette()->m_colors.accent; })->commence();
+    }
+
+    m_highlightedInput = idx;
+
+    if (m_highlightedInput && *m_highlightedInput < m_anchors.size()) {
+        auto& anchor = m_anchors.at(*m_highlightedInput);
+        if (anchor->leftAnchor)
+            anchor->leftAnchor->rebuild()->color([] { return g_ui->m_backend->getPalette()->m_colors.accent.brighten(0.5F); })->commence();
+    }
+}
+
 std::optional<size_t> CGraphNode::inputFromPos(const Hyprutils::Math::Vector2D& x) {
     for (size_t i = 0; i < m_anchors.size(); ++i) {
         if (getInputPos(i).distanceSq(x) < ANCHOR_WIDTH_SQ)
@@ -268,11 +287,13 @@ uint32_t CGraphNode::inPortToID(size_t idx) {
     for (size_t i = 0; i < m_node->m_ports.size(); ++i) {
         const auto& p = m_node->m_ports.at(i);
 
-        if (inSize >= idx)
+        if (p->m_output)
+            continue;
+
+        if (idx < inSize + p->m_channels.size())
             return p->m_id;
 
-        if (!p->m_output)
-            inSize += p->m_channels.size();
+        inSize += p->m_channels.size();
     }
 
     return 0;
@@ -284,11 +305,13 @@ uint32_t CGraphNode::outPortToID(size_t idx) {
     for (size_t i = 0; i < m_node->m_ports.size(); ++i) {
         const auto& p = m_node->m_ports.at(i);
 
-        if (outSize >= idx)
+        if (!p->m_output)
+            continue;
+
+        if (idx < outSize + p->m_channels.size())
             return p->m_id;
 
-        if (p->m_output)
-            outSize += p->m_channels.size();
+        outSize += p->m_channels.size();
     }
 
     return 0;

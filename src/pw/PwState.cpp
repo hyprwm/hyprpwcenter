@@ -48,7 +48,10 @@ CPipewireState::CPipewireState(int argc, char** argv) {
 }
 
 CPipewireState::~CPipewireState() {
+    m_pwState.links.clear();
+    m_pwState.ports.clear();
     m_pwState.nodes.clear();
+    m_pwState.devices.clear();
 
     if (m_pwState.registry)
         pw_proxy_destroy(reinterpret_cast<pw_proxy*>(m_pwState.registry));
@@ -187,10 +190,19 @@ void CPipewireState::linkOrUnlink(WP<IPwNode> a, WP<IPwNode> b, uint32_t portA, 
         m_pwState.links, [a, b, portA, portB](const auto& l) { return l->m_nodeAID == a->m_id && l->m_nodeBID == b->m_id && l->m_portAID == portA && l->m_portBID == portB; });
 
     if (it != m_pwState.links.end()) {
+        if ((*it)->m_id)
+            pw_registry_destroy(m_pwState.registry, (*it)->m_id);
         m_pwState.links.erase(it);
         return;
     }
 
-    auto x    = m_pwState.links.emplace_back(makeShared<CPipewireLink>(a->m_id, b->m_id, portA, portB));
-    x->m_self = x;
+    // Create link in PipeWire via the link factory.
+    // PW_KEY_OBJECT_LINGER ensures the link survives after this client disconnects.
+    // The registry global event will create the tracked, registry-bound entry.
+    pw_properties* props =
+        pw_properties_new(PW_KEY_LINK_OUTPUT_NODE, std::to_string(a->m_id).c_str(), PW_KEY_LINK_OUTPUT_PORT, std::to_string(portA).c_str(), PW_KEY_LINK_INPUT_NODE,
+                          std::to_string(b->m_id).c_str(), PW_KEY_LINK_INPUT_PORT, std::to_string(portB).c_str(), PW_KEY_OBJECT_LINGER, "true", nullptr);
+
+    pw_core_create_object(m_pwState.core, "link-factory", PW_TYPE_INTERFACE_Link, PW_VERSION_LINK, &props->dict, 0);
+    pw_properties_free(props);
 }

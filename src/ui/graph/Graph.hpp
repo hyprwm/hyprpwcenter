@@ -34,6 +34,8 @@ class CGraphView {
     void                                updateAllConnections(SP<CGraphNode> withNode = nullptr);
 
     void                                endDrag();
+    void                                updateHighlight();
+    void                                clearHighlight();
 
     SP<Hyprtoolkit::CNullElement>       m_container;
     SP<Hyprtoolkit::CScrollAreaElement> m_scrollArea;
@@ -51,6 +53,7 @@ class CGraphView {
     bool                                m_setUpdateConnections = false;
 
     bool                                m_mouseDown = false;
+    WP<CGraphNode>                      m_highlightedNode;
 
     //
     Hyprutils::Math::Vector2D                                                              m_initialPos = {};
