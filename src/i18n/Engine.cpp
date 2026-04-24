@@ -122,6 +122,23 @@ void I18n::initEngine() {
     engine.registerEntry("it_IT", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "Usicte attive");
     engine.registerEntry("it_IT", TXT_KEY_GRAPH_PURE_OUTPUTS, "Uscite non connesse");
 
+    // fa_IR (Persian)
+    engine.registerEntry("fa_IR", TXT_KEY_PW_CENTER_TITLE, "مرکز کنترل Pipewire");
+
+    engine.registerEntry("fa_IR", TXT_KEY_BUTTON_APPS, "برنامه‌ها");
+    engine.registerEntry("fa_IR", TXT_KEY_BUTTON_NODES, "گره‌ها");
+    engine.registerEntry("fa_IR", TXT_KEY_BUTTON_INPUTS, "ورودی‌ها");
+    engine.registerEntry("fa_IR", TXT_KEY_BUTTON_CONFIGURATION, "تنظیمات");
+    engine.registerEntry("fa_IR", TXT_KEY_BUTTON_GRAPH, "گراف");
+
+    engine.registerEntry("fa_IR", TXT_KEY_GRAPH_N_PORTS, "{count} پورت");
+    engine.registerEntry("fa_IR", TXT_KEY_GRAPH_PURE_INPUTS, "فقط ورودی‌ها");
+    engine.registerEntry("fa_IR", TXT_KEY_GRAPH_ACTIVE_INPUTS, "ورودی‌های فعال");
+    engine.registerEntry("fa_IR", TXT_KEY_GRAPH_UNCONNECTED_IO, "ورودی/خروجی‌های غیرفعال");
+    engine.registerEntry("fa_IR", TXT_KEY_GRAPH_ACTIVE_IO, "ورودی/خروجی‌های فعال");
+    engine.registerEntry("fa_IR", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "خروجی‌های فعال");
+    engine.registerEntry("fa_IR", TXT_KEY_GRAPH_PURE_OUTPUTS, "فقط خروجی‌ها");
+
     // fi_FI (Finnish)
     engine.registerEntry("fi_FI", TXT_KEY_PW_CENTER_TITLE, "Pipewire-ohjauskeskus");
 
