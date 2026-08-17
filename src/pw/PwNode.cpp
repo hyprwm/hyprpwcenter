@@ -107,7 +107,18 @@ CPipewireNode::CPipewireNode(uint32_t id, uint32_t permissions, const char* type
     m_id = id;
 
     auto        mc  = prop(props, PW_KEY_MEDIA_CLASS);
-    const char* nm  = prop(props, PW_KEY_NODE_NAME);
+    const char* an = spa_dict_lookup(props, PW_KEY_APP_NAME);
+    const char* nn = spa_dict_lookup(props, PW_KEY_NODE_NAME);
+
+    std::string nmStr;
+    if (an && nn && strcmp(an, nn) != 0)
+        nmStr = std::string(an) + ": " + nn;
+    else if (nn)
+        nmStr = nn;
+    else if (an)
+        nmStr = an;
+
+    const char* nm = nmStr.empty() ? nullptr : nmStr.c_str();
     const char* dsc = prop(props, PW_KEY_NODE_DESCRIPTION);
 
     m_name = dsc ? dsc : (nm ? nm : "");
