@@ -8,6 +8,26 @@ void I18n::initEngine() {
     engine.setFallbackLocale("en_US");
     engineLocale = engine.getSystemLocale().locale();
 
+    // sv_SE (Swedish)
+    engine.registerEntry("sv_SE", TXT_KEY_PW_CENTER_TITLE, "PipeWire-kontrollcenter");
+    engine.registerEntry("sv_SE", TXT_KEY_BUTTON_APPS, "Program");
+    engine.registerEntry("sv_SE", TXT_KEY_BUTTON_NODES, "Noder");
+    engine.registerEntry("sv_SE", TXT_KEY_BUTTON_INPUTS, "Ingångar");
+    engine.registerEntry("sv_SE", TXT_KEY_BUTTON_CONFIGURATION, "Inställningar");
+    engine.registerEntry("sv_SE", TXT_KEY_BUTTON_GRAPH, "Graf");
+    engine.registerEntry("sv_SE", TXT_KEY_GRAPH_N_PORTS, [](const Hyprutils::I18n::translationVarMap& vars) {
+        const auto count = std::stoi(vars.at("count"));
+        if (count == 1)
+            return "1 port";
+        return "{count} portar";
+    });
+    engine.registerEntry("sv_SE", TXT_KEY_GRAPH_PURE_INPUTS, "Endast ingångar");
+    engine.registerEntry("sv_SE", TXT_KEY_GRAPH_ACTIVE_INPUTS, "Aktiva ingångar");
+    engine.registerEntry("sv_SE", TXT_KEY_GRAPH_UNCONNECTED_IO, "Oanslutna in- och utgångar");
+    engine.registerEntry("sv_SE", TXT_KEY_GRAPH_ACTIVE_IO, "Aktiva in- och utgångar");
+    engine.registerEntry("sv_SE", TXT_KEY_GRAPH_ACTIVE_OUTPUTS, "Aktiva utgångar");
+    engine.registerEntry("sv_SE", TXT_KEY_GRAPH_PURE_OUTPUTS, "Endast utgångar");
+
     // ar (Arabic)
     engine.registerEntry("ar", TXT_KEY_PW_CENTER_TITLE, "مركز التحكم في Pipewire");
 
