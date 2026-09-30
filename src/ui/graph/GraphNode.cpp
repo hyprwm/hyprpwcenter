@@ -29,7 +29,10 @@ CGraphNode::CGraphNode(WP<IPwNode> node, const Hyprutils::Math::Vector2D& initia
     m_text->setPositionMode(Hyprtoolkit::IElement::HT_POSITION_ABSOLUTE);
     m_text->setPositionFlag(Hyprtoolkit::IElement::HT_POSITION_FLAG_HCENTER, true);
 
-    m_subtext = Hyprtoolkit::CTextBuilder::begin()->text(std::format("<i>{} ports</i>", node->m_ports.size()))->fontSize({Hyprtoolkit::CFontSize::HT_FONT_SMALL})->commence();
+    m_subtext = Hyprtoolkit::CTextBuilder::begin()
+                    ->text(std::format("<i>{}</i>", I18n::localize(I18n::TXT_KEY_GRAPH_N_PORTS, {{"count", std::to_string(node->m_ports.size())}})))
+                    ->fontSize({Hyprtoolkit::CFontSize::HT_FONT_SMALL})
+                    ->commence();
     m_subtext->setPositionMode(Hyprtoolkit::IElement::HT_POSITION_ABSOLUTE);
     m_subtext->setPositionFlag(Hyprtoolkit::IElement::HT_POSITION_FLAG_HCENTER, true);
 
