@@ -23,10 +23,7 @@ class CDeviceConfig {
     size_t                             m_current = 0;
 
   private:
-    SP<Hyprtoolkit::CNullElement>         m_container;
     SP<Hyprtoolkit::CColumnLayoutElement> m_mainLayout;
-    SP<Hyprtoolkit::CRowLayoutElement>    m_topLayout;
-    SP<Hyprtoolkit::CNullElement>         m_topSpacer;
     SP<Hyprtoolkit::CTextElement>         m_topName;
     SP<Hyprtoolkit::CComboboxElement>     m_dropdown;
 

@@ -26,17 +26,13 @@ class CNodeVolumeSlider {
     bool                               m_muted = false;
 
   private:
-    SP<Hyprtoolkit::CNullElement>         m_container;
     SP<Hyprtoolkit::CColumnLayoutElement> m_mainLayout;
     SP<Hyprtoolkit::CRowLayoutElement>    m_topLayout;
     SP<Hyprtoolkit::CNullElement>         m_topSpacer;
-    SP<Hyprtoolkit::CNullElement>         m_topRightContainer;
     SP<Hyprtoolkit::CRowLayoutElement>    m_topRightLayout;
-    SP<Hyprtoolkit::CNullElement>         m_topRightSpacer;
     SP<Hyprtoolkit::CTextElement>         m_topName;
     SP<Hyprtoolkit::CTextElement>         m_topVol;
     SP<Hyprtoolkit::CSliderElement>       m_slider;
-    SP<Hyprtoolkit::CNullElement>         m_muteButtonContainer;
     SP<Hyprtoolkit::CButtonElement>       m_muteButton;
     SP<Hyprtoolkit::CImageElement>        m_buttonIcon;
 
