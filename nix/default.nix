@@ -3,14 +3,8 @@
   stdenv,
   cmake,
   pkg-config,
-  aquamarine,
-  cairo,
-  hyprgraphics,
   hyprtoolkit,
-  hyprutils,
   pipewire,
-  libdrm,
-  pixman,
   version ? "git",
 }:
 stdenv.mkDerivation {
@@ -25,14 +19,8 @@ stdenv.mkDerivation {
   ];
 
   buildInputs = [
-    aquamarine
-    cairo
-    libdrm
-    hyprgraphics
     hyprtoolkit
-    hyprutils
     pipewire
-    pixman
   ];
 
   meta = {
