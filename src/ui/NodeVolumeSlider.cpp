@@ -20,7 +20,7 @@ static float    precalcVolTextWidth() {
     return layout->size().x + 4 /* layouting margin */;
 }
 
-CNodeVolumeSlider::CNodeVolumeSlider(uint32_t id, const std::string& name) : m_id(id) {
+CNodeVolumeSlider::CNodeVolumeSlider(uint32_t id, const std::string& name) : m_id(id), m_name(name) {
     static const float VOL_TEXT_WIDTH = precalcVolTextWidth();
 
     m_background = Hyprtoolkit::CRectangleBuilder::begin()
@@ -156,6 +156,14 @@ void CNodeVolumeSlider::setVolume(float v, bool force) {
 void CNodeVolumeSlider::setMuted(bool x) {
     m_muted = x;
     m_buttonIcon->rebuild()->icon(m_muted ? g_ui->m_mutedIconHandle : g_ui->m_volumeUpIconHandle)->commence();
+}
+
+void CNodeVolumeSlider::setName(const std::string& name) {
+    if (name == m_name)
+        return;
+
+    m_name = name;
+    m_topName->rebuild()->text(std::string{m_name})->commence();
 }
 
 // K constant for logarithmic volume. Can be a matter of taste, but 8 seems alright.

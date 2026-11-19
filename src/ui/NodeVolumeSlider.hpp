@@ -18,6 +18,7 @@ class CNodeVolumeSlider {
 
     void                               setVolume(float, bool force = false);
     void                               setMuted(bool);
+    void                               setName(const std::string&);
 
     SP<Hyprtoolkit::CRectangleElement> m_background;
 
@@ -41,6 +42,7 @@ class CNodeVolumeSlider {
     SP<Hyprtoolkit::CImageElement>        m_buttonIcon;
 
     bool                                  m_settingVolume = false;
+    std::string                           m_name;
 
     float                                 logdVolume();
     float                                 unlogVolume(float x);
