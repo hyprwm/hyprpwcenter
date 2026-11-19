@@ -30,7 +30,21 @@ static const char* prop(const spa_dict* props, const char* key) {
 }
 
 static void onNodeInfo(void* data, const pw_node_info* info) {
-    ;
+    CPipewireNode* node = (CPipewireNode*)data;
+
+    if (!node->m_isApp || !(info->change_mask & PW_NODE_CHANGE_MASK_PROPS))
+        return;
+
+    // media.name is not in the registry global props, and can change at runtime (e.g. browser tab titles)
+    const char*       mn        = prop(info->props, PW_KEY_MEDIA_NAME);
+    const std::string mediaName = mn ? mn : "";
+
+    if (mediaName == node->m_mediaName)
+        return;
+
+    node->m_mediaName = mediaName;
+
+    g_ui->updateNode(node->m_self);
 }
 
 static void onNodeParam(void* data, int seq, uint32_t id, uint32_t index, uint32_t next, const spa_pod* param) {

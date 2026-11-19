@@ -22,7 +22,7 @@ class IPwNode {
     static const char*             getNameForChannel(spa_audio_channel);
 
     uint32_t                       m_id = 0;
-    std::string                    m_name, m_mediaClass;
+    std::string                    m_name, m_mediaClass, m_mediaName;
 
     float                          m_volume = 0;
     bool                           m_muted  = false;

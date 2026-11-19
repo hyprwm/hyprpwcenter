@@ -11,8 +11,31 @@
 using namespace Hyprutils::Math;
 using namespace Hyprutils::String;
 
-constexpr float MAIN_PADDING  = 10;
-constexpr float SMALL_PADDING = 6;
+constexpr float    MAIN_PADDING  = 10;
+constexpr float    SMALL_PADDING = 6;
+
+static std::string escapeMarkup(const std::string& str) {
+    std::string result;
+    result.reserve(str.size());
+
+    for (const char c : str) {
+        switch (c) {
+            case '&': result += "&amp;"; break;
+            case '<': result += "&lt;"; break;
+            case '>': result += "&gt;"; break;
+            default: result += c; break;
+        }
+    }
+
+    return result;
+}
+
+static std::string sliderNameForNode(WP<IPwNode> node) {
+    if (!node->m_isApp || node->m_mediaName.empty() || node->m_mediaName == node->m_name)
+        return node->m_name;
+
+    return std::format("<b>{}</b>: {}", escapeMarkup(node->m_name), escapeMarkup(node->m_mediaName));
+}
 
 CUI::CUI() {
     auto data           = Hyprtoolkit::IBackend::SBackendCreationData{};
@@ -175,13 +198,14 @@ void CUI::updateNode(WP<IPwNode> node) {
     if (const auto N = sliderFromNode(node)) {
         N->setVolume(node->m_volume);
         N->setMuted(node->m_muted);
+        N->setName(sliderNameForNode(node));
         return;
     }
 
     SP<CNodeVolumeSlider> x;
 
     if (node->m_isApp) {
-        x = m_tabs.appsTab.appSliders.emplace_back(makeShared<CNodeVolumeSlider>(node->m_id, node->m_name));
+        x = m_tabs.appsTab.appSliders.emplace_back(makeShared<CNodeVolumeSlider>(node->m_id, sliderNameForNode(node)));
         m_tabs.appsTab.appsLayout->addChild(x->m_background);
     } else if (node->m_mediaClass.starts_with("Audio/Source")) {
         x = m_tabs.inputsTab.inputSliders.emplace_back(makeShared<CNodeVolumeSlider>(node->m_id, node->m_name));
