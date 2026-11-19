@@ -22,8 +22,8 @@ CDeviceConfig::CDeviceConfig(uint32_t id, const std::string& name, const std::ve
 
     m_container = Hyprtoolkit::CNullBuilder::begin()
                       ->size({
-                          Hyprtoolkit::CDynamicSize::HT_SIZE_AUTO,
-                          Hyprtoolkit::CDynamicSize::HT_SIZE_AUTO,
+                          Hyprtoolkit::CDynamicSize::HT_SIZE_PERCENT,
+                          Hyprtoolkit::CDynamicSize::HT_SIZE_PERCENT,
                           {1.F, 1.F},
                       })
                       ->commence();

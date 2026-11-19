@@ -37,7 +37,7 @@ CNodeVolumeSlider::CNodeVolumeSlider(uint32_t id, const std::string& name) : m_i
 
     m_container = Hyprtoolkit::CNullBuilder::begin()
                       ->size({
-                          Hyprtoolkit::CDynamicSize::HT_SIZE_AUTO,
+                          Hyprtoolkit::CDynamicSize::HT_SIZE_PERCENT,
                           Hyprtoolkit::CDynamicSize::HT_SIZE_AUTO,
                           {1.F, 1.F},
                       })
